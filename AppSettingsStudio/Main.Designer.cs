@@ -53,7 +53,7 @@
             hierarchical3LevelsToolStripMenuItem = new ToolStripMenuItem();
             hierarchicalToolStripMenuItem = new ToolStripMenuItem();
             aboutToolStripMenuItem = new ToolStripMenuItem();
-            aboutSettingsManagerToolStripMenuItem = new ToolStripMenuItem();
+            aboutSettingsStudioToolStripMenuItem = new ToolStripMenuItem();
             statusStripMain = new StatusStrip();
             toolStripStatusLabelLeft = new ToolStripStatusLabel();
             splitContainerMain = new SplitContainer();
@@ -219,15 +219,15 @@
             // 
             // aboutToolStripMenuItem
             // 
-            aboutToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { aboutSettingsManagerToolStripMenuItem });
+            aboutToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { aboutSettingsStudioToolStripMenuItem });
             aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             resources.ApplyResources(aboutToolStripMenuItem, "aboutToolStripMenuItem");
             // 
-            // aboutSettingsManagerToolStripMenuItem
+            // aboutSettingsStudioToolStripMenuItem
             // 
-            aboutSettingsManagerToolStripMenuItem.Name = "aboutSettingsManagerToolStripMenuItem";
-            resources.ApplyResources(aboutSettingsManagerToolStripMenuItem, "aboutSettingsManagerToolStripMenuItem");
-            aboutSettingsManagerToolStripMenuItem.Click += AboutSettingsManagerToolStripMenuItem_Click;
+            aboutSettingsStudioToolStripMenuItem.Name = "aboutSettingsStudioToolStripMenuItem";
+            resources.ApplyResources(aboutSettingsStudioToolStripMenuItem, "aboutSettingsStudioToolStripMenuItem");
+            aboutSettingsStudioToolStripMenuItem.Click += AboutSettingsStudioToolStripMenuItem_Click;
             // 
             // statusStripMain
             // 
@@ -403,7 +403,7 @@
         private ToolStripMenuItem preferencesToolStripMenuItem;
         private ToolStripSeparator toolStripSeparator1;
         private ToolStripMenuItem aboutToolStripMenuItem;
-        private ToolStripMenuItem aboutSettingsManagerToolStripMenuItem;
+        private ToolStripMenuItem aboutSettingsStudioToolStripMenuItem;
         private ToolStripMenuItem editToolStripMenuItem;
         private ToolStripMenuItem variablesToolStripMenuItem;
         private ToolStripMenuItem addVirtualSettingsToolStripMenuItem;

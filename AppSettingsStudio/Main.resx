@@ -251,11 +251,11 @@
   <data name="viewToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;View</value>
   </data>
-  <data name="aboutSettingsManagerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="aboutSettingsStudioToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>211, 22</value>
   </data>
-  <data name="aboutSettingsManagerToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;About Settings Manager...</value>
+  <data name="aboutSettingsStudioToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;About AppSettings Studio...</value>
   </data>
   <data name="aboutToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>52, 20</value>
@@ -574,7 +574,7 @@
     <value>CenterScreen</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>Settings Manager</value>
+    <value>AppSettings Studio</value>
   </data>
   <data name="&gt;&gt;fileToolStripMenuItem.Name" xml:space="preserve">
     <value>fileToolStripMenuItem</value>
@@ -708,10 +708,10 @@
   <data name="&gt;&gt;aboutToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;aboutSettingsManagerToolStripMenuItem.Name" xml:space="preserve">
-    <value>aboutSettingsManagerToolStripMenuItem</value>
+  <data name="&gt;&gt;aboutSettingsStudioToolStripMenuItem.Name" xml:space="preserve">
+    <value>aboutSettingsStudioToolStripMenuItem</value>
   </data>
-  <data name="&gt;&gt;aboutSettingsManagerToolStripMenuItem.Type" xml:space="preserve">
+  <data name="&gt;&gt;aboutSettingsStudioToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;toolStripStatusLabelLeft.Name" xml:space="preserve">

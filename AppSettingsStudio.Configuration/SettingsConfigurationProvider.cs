@@ -83,7 +83,7 @@ public partial class SettingsConfigurationProvider : ConfigurationProvider
         Set(nameof(RootPath), RootPath);
     }
 
-    // only used by settings manager's app
+    // only used by appsettings studio's app
     public static string? GetRootPath(IConfiguration configuration)
     {
         ArgumentNullException.ThrowIfNull(configuration);

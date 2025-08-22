@@ -13,6 +13,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <None Remove="appsettings.json" />
 	  <None Remove="Resources\ImageLibrary32.bmp" />
 	  <None Remove="Resources\index.html" />
 	  <None Remove="Resources\vs.0.52.2.zip" />
@@ -32,6 +33,12 @@
 
 	<ItemGroup>
 	  <Compile Include="..\AppSettingsStudio.Configuration\Properties\AssemblyVersionInfo.cs" Link="Properties\AssemblyVersionInfo.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Include="appsettings.json">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
 	</ItemGroup>
 
 	<ItemGroup>

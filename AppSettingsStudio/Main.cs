@@ -17,7 +17,7 @@ public partial class Main : Form, ILoggable<Main>
         InitializeComponent();
         _boldFont = new Font(treeViewSettings.Font, FontStyle.Bold);
         Icon = Res.MainIcon;
-        Text = AssemblyUtilities.GetTitle();
+        Text = AssemblyUtilities.GetProduct();
 
         Settings.Current.RestorePlacement(this);
 
@@ -309,7 +309,7 @@ public partial class Main : Form, ILoggable<Main>
                 _currentJsonFileHasChanged = true;
                 BeginInvoke(() =>
                 {
-                    Text = AssemblyUtilities.GetTitle() + " - *" + _currentJsonFilePath;
+                    Text = AssemblyUtilities.GetProduct() + " - *" + _currentJsonFilePath;
                 });
             }
             return;
@@ -389,7 +389,7 @@ public partial class Main : Form, ILoggable<Main>
         _currentJsonFileHasChanged = false;
         BeginInvoke(() =>
         {
-            Text = AssemblyUtilities.GetTitle() + " - " + _currentJsonFilePath;
+            Text = AssemblyUtilities.GetProduct() + " - " + _currentJsonFilePath;
         });
     }
 
@@ -445,7 +445,7 @@ public partial class Main : Form, ILoggable<Main>
     private void ExportToolStripMenuItem_Click(object sender, EventArgs e) => Export();
     private void SaveToolStripMenuItem_Click(object sender, EventArgs e) => _ = Save();
     private void OpenWithDefaultEditorToolStripMenuItem_Click(object sender, EventArgs e) => OpenWithDefaultEditor();
-    private void AboutSettingsManagerToolStripMenuItem_Click(object sender, EventArgs e) => new AboutForm().ShowDialog(this);
+    private void AboutSettingsStudioToolStripMenuItem_Click(object sender, EventArgs e) => new AboutForm().ShowDialog(this);
     private void RefreshToolStripMenuItem_Click(object sender, EventArgs e) => _ = RefreshTree();
     private void DeleteToolStripMenuItem_Click(object sender, EventArgs e) => DeleteTreeItem();
     private void DeleteAppSettingToolStripMenuItem_Click(object sender, EventArgs e) => DeleteTreeItem();
@@ -476,7 +476,7 @@ public partial class Main : Form, ILoggable<Main>
 
                 BeginInvoke(() =>
                 {
-                    Text = AssemblyUtilities.GetTitle() + " - " + filePath;
+                    Text = AssemblyUtilities.GetProduct() + " - " + filePath;
 
                     var fp = treeViewSettings.SelectedNode.FullPath;
                     if (Settings.Current.LastFullPath != fp)
@@ -490,7 +490,7 @@ public partial class Main : Form, ILoggable<Main>
         else
         {
             _currentJsonFilePath = null;
-            Text = AssemblyUtilities.GetTitle();
+            Text = AssemblyUtilities.GetProduct();
             if (_editorControl == null)
                 return;
 

@@ -37,7 +37,7 @@ internal class Program
         .ConfigureAppConfiguration((context, config) =>
         {
             config
-            .AddSettingsManager()
+            .AddAppSettingsStudio()
             .AddEnvironmentVariables()
             .AddCommandLine(args);
         })

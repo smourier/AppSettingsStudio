@@ -2,7 +2,7 @@
   "profiles": {
     "AppSettingsStudio": {
       "commandName": "Project",
-      "nativeDebugging": true
+      "nativeDebugging": false
     }
   }
 }

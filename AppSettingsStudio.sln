@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppSettingsStudio", "AppSet
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppSettingsStudio.Configuration", "AppSettingsStudio.Configuration\AppSettingsStudio.Configuration.csproj", "{1666F0E7-0080-4C18-8BFC-98505B832456}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample.ConsoleApp", "Sample.ConsoleApp\Sample.ConsoleApp.csproj", "{A42181EC-D84E-4EB3-B2A1-F2B074FF7A0C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{1666F0E7-0080-4C18-8BFC-98505B832456}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1666F0E7-0080-4C18-8BFC-98505B832456}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1666F0E7-0080-4C18-8BFC-98505B832456}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A42181EC-D84E-4EB3-B2A1-F2B074FF7A0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A42181EC-D84E-4EB3-B2A1-F2B074FF7A0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A42181EC-D84E-4EB3-B2A1-F2B074FF7A0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A42181EC-D84E-4EB3-B2A1-F2B074FF7A0C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
