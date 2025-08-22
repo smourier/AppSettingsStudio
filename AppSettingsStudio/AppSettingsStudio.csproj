@@ -1,0 +1,104 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net9.0-windows</TargetFramework>
+		<Nullable>enable</Nullable>
+		<UseWindowsForms>true</UseWindowsForms>
+		<!-- just because of this dumb error https://github.com/MicrosoftEdge/WebView2Feedback/issues/4959 -->
+		<UseWPF>true</UseWPF>
+		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+		<ApplicationIcon>Resources\AppSettingsStudio.ico</ApplicationIcon>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <None Remove="Resources\ImageLibrary32.bmp" />
+	  <None Remove="Resources\index.html" />
+	  <None Remove="Resources\vs.0.52.2.zip" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Include="Resources\AppSettingsStudio.ico" />
+		<EmbeddedResource Include="Resources\ImageLibrary32.bmp" />
+		<EmbeddedResource Include="Resources\index.html" />
+		<EmbeddedResource Include="Resources\vs.0.52.2.zip" />
+		<Compile Update="Resources\Res.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Res.resx</DependentUpon>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Include="..\AppSettingsStudio.Configuration\Properties\AssemblyVersionInfo.cs" Link="Properties\AssemblyVersionInfo.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Web.WebView2" Version="1.0.3405.78" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.8" />
+		<PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.8" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\AppSettingsStudio.Configuration\AppSettingsStudio.Configuration.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Using Include="AppSettingsStudio.Configuration" />
+		<Using Include="AppSettingsStudio.Monaco" />
+		<Using Include="AppSettingsStudio.Resources" />
+		<Using Include="AppSettingsStudio.Utilities" />
+		<Using Include="Microsoft.Extensions.Configuration" />
+		<Using Include="Microsoft.Extensions.DependencyInjection" />
+		<Using Include="Microsoft.Extensions.Hosting" />
+		<Using Include="Microsoft.Extensions.Logging" />
+		<Using Include="Microsoft.Win32" />
+		<Using Include="Microsoft.Web.WebView2.Core" />
+		<Using Include="Microsoft.Web.WebView2.WinForms" />
+		<Using Include="System" />
+		<Using Include="System.Collections" />
+		<Using Include="System.Collections.Generic" />
+		<Using Include="System.Collections.Concurrent" />
+		<Using Include="System.ComponentModel" />
+		<Using Include="System.Diagnostics" />
+		<Using Include="System.Diagnostics.CodeAnalysis" />
+		<Using Include="System.Drawing" />
+		<Using Include="System.Drawing.Design" />
+		<Using Include="System.Drawing.Drawing2D" />
+		<Using Include="System.Drawing.Imaging" />
+		<Using Include="System.Globalization" />
+		<Using Include="System.IO" />
+		<Using Include="System.IO.Compression" />
+		<Using Include="System.Linq" />
+		<Using Include="System.Reflection" />
+		<Using Include="System.Runtime.CompilerServices" />
+		<Using Include="System.Runtime.InteropServices" />
+		<Using Include="System.Runtime.InteropServices.Marshalling" />
+		<Using Include="System.Runtime.Versioning" />
+		<Using Include="System.Text" />
+		<Using Include="System.Text.Json" />
+		<Using Include="System.Text.Json.Serialization" />
+		<Using Include="System.Text.RegularExpressions" />
+		<Using Include="System.Threading" />
+		<Using Include="System.Threading.Tasks" />
+		<Using Include="System.Windows.Forms" />
+		<Using Include="System.Windows.Forms.Design" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Update="Monaco\MonacoEditorControl.resx">
+	    <Generator>PublicResXFileCodeGenerator</Generator>
+	    <LastGenOutput>MonacoEditorControl.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Resources\Res.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>Res.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="SettingsForm.resx">
+	    <Generator>PublicResXFileCodeGenerator</Generator>
+	    <LastGenOutput>SettingsForm.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	</ItemGroup>
+
+</Project>
