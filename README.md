@@ -98,7 +98,29 @@ You can enable an application's settings to change *at the same time* you edit i
 
 The Sample.ConsoleApp project demonstrates this.
 
-What it does is continuously display the value of one of it's custom settings property. Just run it and change the settings in AppSettings Studio at the same time. Each time you save, the application reflects it. Here we have change the Position's Name to "Joe Smith Senior" and undo:
+What it does is continuously display the value of one of it's custom settings property:
+
+    ...
+    // get a loggger from DI
+    var logger = host.Services.GetRequiredService<ILogger<Program>>();
+
+    // get the a dynamic (can be changed during exection) PositionOptions monitor from DI
+    var options = host.Services.GetRequiredService<IOptionsMonitor<PositionOptions>>();
+    while (true)
+    {
+        logger.LogInformation("Hello {Name}", options.CurrentValue.Name);
+        await Task.Delay(500);
+    }
+
+    public class PositionOptions
+    {
+        public const string Position = "Position";
+
+        public string Title { get; set; } = string.Empty;
+        public string Name { get; set; } = string.Empty;
+    }    
+
+Just run it and change the settings in AppSettings Studio at the same time. Each time you save, the application reflects it. Here we have change the Position's Name to "Joe Smith Senior" and undo:
 
 <img width="1128" height="630" alt="Settings Live Change Windows" src="https://github.com/user-attachments/assets/05a32e91-d064-45c3-8587-3e058548fa7c" />
 
