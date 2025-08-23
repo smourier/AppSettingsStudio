@@ -96,7 +96,7 @@ You can enable an application's settings to change at the same time you edit it 
 
 The Sample.ConsoleApp project demonstrates this.
 
-What it does is continuously display the value of one of it's custom settings property. Just run it and change the settings in AppSettings Studio at the same time. Each time you save, the application will reflect it. Here we have change the Position's Name to "Joe Smith Senior" and undo:
+What it does is continuously display the value of one of it's custom settings property. Just run it and change the settings in AppSettings Studio at the same time. Each time you save, the application reflects it. Here we have change the Position's Name to "Joe Smith Senior" and undo:
 
 <img width="1128" height="630" alt="Settings Live Change Windows" src="https://github.com/user-attachments/assets/05a32e91-d064-45c3-8587-3e058548fa7c" />
 
