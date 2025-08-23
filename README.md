@@ -75,6 +75,8 @@ Now, this setting's json, with a content initialized from the gathered `appsetti
 
 <img width="669" height="327" alt="Editable Settings" src="https://github.com/user-attachments/assets/61889a41-4619-4b50-a020-67c7c788a2d0" />
 
+Note: since the editor is based on Monaco, you can use standard Monaco shortcuts, so for example ALT+SHIFT+F reformats the JSON).
+
 Now, when you restart the .NET application, it will use the new settings. If the application supports it, changes can be reflected dynamically (see next chapter).
 
 You can configure more than one settings per application, but only one is considered as *active*: the one that has the icon with a small green "O" overlay:
