@@ -71,9 +71,11 @@ Choose a name (it must start with *appsettings* and be a *.json* file):
 
 <img width="460" height="108" alt="Link Name" src="https://github.com/user-attachments/assets/b8143bbf-a8b3-43f4-b6a2-3f4ace65f293" />
 
-Now, this setting's json, with a content initialized from the gathered `appsettings.json`'s content, is editable:
+Now, this setting's json, with a content initialized from the gathered `appsettings.json`'s content, is editable, and you can save the change (CTRL+S as a shortcut):
 
 <img width="669" height="327" alt="Editable Settings" src="https://github.com/user-attachments/assets/61889a41-4619-4b50-a020-67c7c788a2d0" />
+
+Now, when you restart the .NET application, it will use the new settings. If the application supports it, changes can be reflected dynamically (see next chapter).
 
 You can configure more than one settings per application, but only one is considered as *active*: the one that has the icon with a small green "O" overlay:
 
