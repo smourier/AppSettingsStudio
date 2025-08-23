@@ -60,5 +60,28 @@ Choose a name (it must start with appsettings and be a .json file):
 
 Now, this virtual setting's json, with a content initialized from the gathered `appsettings.json`'s content, is editable:
 
-<img width="669" height="327" alt="Edtiable Settings" src="https://github.com/user-attachments/assets/61889a41-4619-4b50-a020-67c7c788a2d0" />
+<img width="669" height="327" alt="Editable Settings" src="https://github.com/user-attachments/assets/61889a41-4619-4b50-a020-67c7c788a2d0" />
+
+## Enabling an application running on WSL
+AppSettings Studio has the concept of "root paths". They are configured directories which contain gathered `appsettings.json` files pointers, virtual ones as well as links.
+
+By default, only one root path exists: `%USERPROFILE%\.AppSettingsStudio`, so for example `C:\Users\<your login>\.AppSettingsStudio`, but you can add others, and this is how you can configure .NET apps running in WSL.
+
+Once you have started an enabled .NET application in WSL at least once, open AppSettings Studio and select the "File" / "Root Paths" menu
+
+<img width="285" height="208" alt="Root Paths" src="https://github.com/user-attachments/assets/1b6d9135-9aee-4cb9-a4af-0a737084cad9" />
+
+Select the .AppSettingsStudio directory that has been created in the WSL volume:
+
+<img width="1260" height="721" alt="WSL Root Path" src="https://github.com/user-attachments/assets/c7a63015-c7ce-4d8e-8ca3-dfa97eadc9a4" />
+
+Two root paths are now configured:
+
+<img width="1086" height="521" alt="Two Root Paths" src="https://github.com/user-attachments/assets/10d0c031-edb3-4983-b81e-28274b864f57" />
+
+AppSettings Studio shows you the .NET app running in WSL:
+
+<img width="872" height="452" alt="WSL dotnet" src="https://github.com/user-attachments/assets/89f18e46-dc35-464c-b61f-f349f166c81e" />
+
+Note: all WSL apps appear under a "dotnet" tree item because they are all lauched by same "dotnet" executable.
 
