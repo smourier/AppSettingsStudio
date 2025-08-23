@@ -17,6 +17,7 @@ Possible use cases:
 * Avoid storing secrets in source control repository (`appsettings.json` files can just contain comments and placeholders)
 * Simplify settings management for the same application deployed or used differently (debug vs release, v1 vs v2, WSL vs Windows, git submodules, multiple repo clones, etc.)
 * Easy support for dynamic settings changes
+* Easy settings change using with a syntax coloring enabled Json editor
 * etc.
 
 The solution consists of two main components:
@@ -64,13 +65,26 @@ To be able to change an app's settings, you just need to create a "Virtual Setti
 
 <img width="377" height="241" alt="Virtual Settings" src="https://github.com/user-attachments/assets/3226a81c-8756-4984-bbb2-747b645172b1" />
 
-Choose a name (it must start with appsettings and be a .json file):
+Choose a name (it must start with *appsettings* and be a *.json* file):
 
-<img width="456" height="104" alt="Virtual Settings Name" src="https://github.com/user-attachments/assets/a6e41c58-8307-445e-9f27-06bf30951473" />
+<img width="460" height="108" alt="Link Name" src="https://github.com/user-attachments/assets/b8143bbf-a8b3-43f4-b6a2-3f4ace65f293" />
 
-Now, this virtual setting's json, with a content initialized from the gathered `appsettings.json`'s content, is editable:
+Now, this setting's json, with a content initialized from the gathered `appsettings.json`'s content, is editable:
 
 <img width="669" height="327" alt="Editable Settings" src="https://github.com/user-attachments/assets/61889a41-4619-4b50-a020-67c7c788a2d0" />
+
+You can configure more than one settings per application, but only one is considered as *active*: the one that has the icon with a small green "O" overlay:
+
+<img width="257" height="232" alt="Active Settings" src="https://github.com/user-attachments/assets/33338fe2-f094-4785-98f0-6c4d5c2f1266" />
+
+You can change the active settings by right clicking on a settings node and selecting "Make Active"
+
+<img width="303" height="245" alt="Make Active" src="https://github.com/user-attachments/assets/be0c2361-2649-4f99-b7f3-a4e1688cc87e" />
+
+You can also import an existing settings, from a fellow developer for example, by right clicking on an application's instance node and selecting "Import Virtual Settings..."
+
+<img width="327" height="256" alt="Import Settings" src="https://github.com/user-attachments/assets/c1392830-512f-4b1d-aa40-aa4109110896" />
+
 
 ## Dynamic settings change
 You can enable an application's settings to change at the same time you edit it AppSettings Studio. There are two requirements:
@@ -131,11 +145,11 @@ To avoid copying settings for applications that can share them (like in the Debu
 
 <img width="304" height="253" alt="Link" src="https://github.com/user-attachments/assets/10470d66-e04b-4d22-a2a4-d09d7963daac" />
 
-You then can choose a source virtual settings to link to:
+You then can choose a source settings to link to:
 
 <img width="1040" height="554" alt="Browse Links" src="https://github.com/user-attachments/assets/162b0479-5102-4c66-a8ee-50e94eacf1e6" />
 
-Now, each time you change a source virtual setting, it will be reflected in all linked settings.
+Now, each time you change a source setting using the JSON editor, it will be reflected in all linked virtual settings.
 <img width="1080" height="518" alt="Link" src="https://github.com/user-attachments/assets/c40e1bc8-8f4d-49d9-89e2-56c8d463157e" />
 
 Note: creating links between Windows and WSL is not supported.
