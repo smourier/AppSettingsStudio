@@ -180,3 +180,18 @@ Now, each time you change a source setting using the JSON editor, it will be ref
 <img width="1080" height="518" alt="Link" src="https://github.com/user-attachments/assets/c40e1bc8-8f4d-49d9-89e2-56c8d463157e" />
 
 Note: creating links between Windows and WSL is not supported.
+
+## Variables
+AppSettings Studio supports two types of variables that you can use in virtual settings JSON properties values (not keys):
+
+1) AppSettings Studio's **Global variables**. They can be declared using the `@(name of variable)` syntax.
+2) **Environment variables**.  They can be declared using the `$(name of variable)` syntax.
+
+To declare an AppSettings Studio variable just select the "Edit", "Global Variables..." menu:
+
+<img width="267" height="104" alt="Global Variables" src="https://github.com/user-attachments/assets/12cdda57-7544-441d-bbc8-503887316e41" />
+
+A Global Variable is a key + value pair, and you can use the key anywhere in a JSON property value (it can be in the middle of the property value):
+
+<img width="1080" height="668" alt="image" src="https://github.com/user-attachments/assets/5e1f3be4-19e7-4ac5-9098-63abd28eb10a" />
+
