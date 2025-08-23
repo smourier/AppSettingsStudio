@@ -9,6 +9,15 @@ AppSettings Studio builds on `Microsoft.Extensions.Logging.Configuration` and sp
 
 Although primarily designed for .NET developers during development and testing, there’s nothing preventing its use in production. It supports all types of .NET applications—Web, Console, etc.—running on both Windows and Linux.
 
+Possible use cases:
+
+* Centralized management of `appsettings.json` files
+* Enable per-developper app settings configuration
+* Avoid storing per-developer `appsettings.json` files in source control repository
+* Avoid storing secrets in source control repository (`appsettings.json` files can just contain comments and placeholders)
+* Easy support for dynamic settings changes
+* etc.
+
 The solution consists of two main components:
 
 1. **AppSettingsStudio.Configuration** assembly – a standard [.NET Configuration Provider](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/configuration#configuration-providers). This must be included in any application that should integrate with the AppSettings Studio application.
@@ -62,10 +71,28 @@ Now, this virtual setting's json, with a content initialized from the gathered `
 
 <img width="669" height="327" alt="Editable Settings" src="https://github.com/user-attachments/assets/61889a41-4619-4b50-a020-67c7c788a2d0" />
 
+## Dynamic settings change
+You can enable an application's settings to change at the same time you edit it AppSettings Studio. There are two requirements:
+
+1) the application must follow .NET Configurations's [IOptionsMonitor pattern](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/configuration/options#ioptionsmonitor)
+2) the application must be configured with the `SettingsOptions.MonitorChanges` option (see above)
+
+The Sample.ConsoleApp project demonstrates this.
+
+What it does is continuously display the value of one of it's custom settings property. Just run it and change the settings in AppSettings Studio. Here we have change the Position's Name to "Joe Smith Senior" and undo:
+
+<img width="1128" height="630" alt="Settings Live Change Windows" src="https://github.com/user-attachments/assets/05a32e91-d064-45c3-8587-3e058548fa7c" />
+
+This is the same exact .NET app running in WSL Ubuntu (see following chapter on how to configure this):
+
+<img width="1124" height="619" alt="Settings Live Change WSL" src="https://github.com/user-attachments/assets/1fb784cc-e435-4ac9-b1cf-4b3e995bad72" />
+
 ## Enabling an application running on WSL
 AppSettings Studio has the concept of "root paths". They are configured directories which contain gathered `appsettings.json` files pointers, virtual ones as well as links.
 
-By default, only one root path exists: `%USERPROFILE%\.AppSettingsStudio`, so for example `C:\Users\<your login>\.AppSettingsStudio`, but you can add others, and this is how you can configure .NET apps running in WSL.
+By default, only one root path exists: `%USERPROFILE%\.AppSettingsStudio`, so for example `C:\Users\<your login>\.AppSettingsStudio`, but you can add others.
+
+This can be used to share settings among multiple developers, but this is also how you can configure .NET apps running in WSL.
 
 Once you have started an enabled .NET application in WSL at least once, open AppSettings Studio and select the "File" / "Root Paths" menu
 
