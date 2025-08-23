@@ -15,6 +15,7 @@ Possible use cases:
 * Enable per-developper app settings configuration
 * Avoid storing per-developer `appsettings.json` files in source control repository
 * Avoid storing secrets in source control repository (`appsettings.json` files can just contain comments and placeholders)
+* Simplify settings management for the same application deployed or used differently (debug vs release, v1 vs v2, WSL vs Windows, git submodules, multiple repo clones, etc.)
 * Easy support for dynamic settings changes
 * etc.
 
@@ -44,11 +45,11 @@ To be able to use AppSettings Studio, an application must be "enabled". For that
     .Build();
     ...
 
-`GatherAppSettingsFile` tells the system to gather an `appsettings.json` file in AppSettings Studio. This gathering step needs to be performed at least once but can be skipped afterward. By default, if no option is provided, it only runs in DEBUG builds—preventing accidental execution in production.
+`GatherAppSettingsFile` tells the system to *gather* an `appsettings.json` file in AppSettings Studio. This gathering step needs to be performed at least once but can be skipped afterward. By default, if no option is provided, it only runs in DEBUG builds—preventing accidental execution in production.
 
 `MonitorChanges` tells the system to reload the settings each time it's changed in AppSettings Studio.
 
-## Configuring an application
+## Configuring an application with "virtual settings"
 The first time the application is ran, and if it was configured to gather it's `appsettings.json` file, the application should appear in AppSettings Studio. For example, since AppSettings Studio is itself enabled, the first time you run it, this is what you should see:
 
 <img width="1109" height="841" alt="AppSettings Studio" src="https://github.com/user-attachments/assets/654de972-19da-477c-b1fc-6b99914f96d9" />
@@ -112,3 +113,29 @@ AppSettings Studio shows you the .NET app running in WSL:
 
 Note: all WSL apps appear under a "dotnet" tree item because they are all lauched by same "dotnet" executable.
 
+## Same application, multiple instances
+The same .NET application can be deployed multiple times for different reasons : Debug vs Relese, Testing environment vs Developer environment, versioning, etc. An application is by default identified by the name of it's executable, not by the directory it exists in.
+
+AppSettings Studio allows centralization of all these settings in one place, for example if the Sample.ConsoleApp is only run in Debug, this is what we'll see:
+
+<img width="287" height="338" alt="Debug Only" src="https://github.com/user-attachments/assets/ebb4a6d6-08a0-4c12-a0bd-9bf3edfce838" />
+
+But once it's been also run in Release, there are now two child nodes under the application node, prefixed by Debug and Release:
+
+<img width="269" height="329" alt="image" src="https://github.com/user-attachments/assets/3a51b42e-879f-4583-bdef-bdcb1af4c23d" />
+
+Note: AppSettings Studio automatically generates a unique, concise name for each application version to help distinguish them.
+
+## "Virtual Settings" links
+To avoid copying settings for applications that can share them (like in the Debug vs Release case), you can create a "virtual settings" *link* to a "virtual settings".
+
+<img width="304" height="253" alt="Link" src="https://github.com/user-attachments/assets/10470d66-e04b-4d22-a2a4-d09d7963daac" />
+
+You then can choose a source virtual settings to link to:
+
+<img width="1040" height="554" alt="Browse Links" src="https://github.com/user-attachments/assets/162b0479-5102-4c66-a8ee-50e94eacf1e6" />
+
+Now, each time you change a source virtual setting, it will be reflected in all linked settings.
+<img width="1080" height="518" alt="Link" src="https://github.com/user-attachments/assets/c40e1bc8-8f4d-49d9-89e2-56c8d463157e" />
+
+Note: creating links between Windows and WSL is not supported.
