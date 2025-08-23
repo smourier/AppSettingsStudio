@@ -175,7 +175,8 @@ You then can choose a source settings to link to:
 
 <img width="1040" height="554" alt="Browse Links" src="https://github.com/user-attachments/assets/162b0479-5102-4c66-a8ee-50e94eacf1e6" />
 
-Now, each time you change a source setting using the JSON editor, it will be reflected in all linked virtual settings.
+Now, each time you change a source setting using the JSON editor, it will be reflected in all linked virtual settings:
+
 <img width="1080" height="518" alt="Link" src="https://github.com/user-attachments/assets/c40e1bc8-8f4d-49d9-89e2-56c8d463157e" />
 
 Note: creating links between Windows and WSL is not supported.
