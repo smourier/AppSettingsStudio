@@ -70,6 +70,15 @@ namespace AppSettingsStudio.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Links cannot be established between Unix paths with Windows paths..
+        /// </summary>
+        internal static string CannotLink {
+            get {
+                return ResourceManager.GetString("CannotLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Confirmation.
         /// </summary>
         internal static string Confirmation {

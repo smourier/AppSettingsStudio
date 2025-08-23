@@ -22,7 +22,6 @@ internal class Program
             return;
         }
 
-        TaskScheduler.UnobservedTaskException += OnUnobservedTaskException;
         _monacoInstalledTask = MonacoResources.EnsureMonacoFilesAsync();
         Application.EnableVisualStyles();
         Application.SetCompatibleTextRenderingDefault(false);
@@ -37,18 +36,11 @@ internal class Program
         .ConfigureAppConfiguration((context, config) =>
         {
             config
-            .AddAppSettingsStudio()
-            .AddEnvironmentVariables()
-            .AddCommandLine(args);
+            // we're self hosted as a demonstration, note however this is not how AppSettingsStudio is configured
+            .AddAppSettingsStudio();
         })
         .Build();
 
         Application.Run(new Main());
-    }
-
-    private static void OnUnobservedTaskException(object? sender, UnobservedTaskExceptionEventArgs e)
-    {
-        var logger = Host?.Services.GetService<ILogger<Program>>();
-        logger.LogError(e.Exception);
     }
 }

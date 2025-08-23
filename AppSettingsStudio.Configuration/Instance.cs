@@ -109,9 +109,18 @@ public class Instance(App app, string directoryPath, string appSettingsPath) : I
         return newAppSettings;
     }
 
+    public virtual bool CanLinkToAppSettings(AppSettings appSettings)
+    {
+        ArgumentNullException.ThrowIfNull(appSettings);
+        return IsWsl == appSettings.Instance.IsWsl;
+    }
+
     public virtual AppSettings LinkToAppSettings(AppSettings appSettings)
     {
         ArgumentNullException.ThrowIfNull(appSettings);
+        if (!CanLinkToAppSettings(appSettings))
+            throw new InvalidOperationException("Links cannot be established between Unix paths with Windows paths.");
+
         var existing = AppSettings.FirstOrDefault(a => a.LinkedFilePath.EqualsIgnoreCase(appSettings.FilePath));
         if (existing != null)
             return existing;

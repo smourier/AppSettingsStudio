@@ -133,4 +133,7 @@
   <data name="Warning" xml:space="preserve">
     <value>Warning</value>
   </data>
+  <data name="CannotLink" xml:space="preserve">
+    <value>Links cannot be established between Unix paths with Windows paths.</value>
+  </data>
 </root>

@@ -1,6 +1,6 @@
 namespace AppSettingsStudio;
 
-public partial class Main : Form, ILoggable<Main>
+public partial class Main : Form
 {
     private readonly TreeNode _rootNode;
     private MonacoEditorControl? _editorControl;
@@ -664,6 +664,12 @@ public partial class Main : Form, ILoggable<Main>
         var target = dlg.AppSettings;
         if (target == null)
             return;
+
+        if (!instance.CanLinkToAppSettings(target))
+        {
+            this.ShowWarning(Res.CannotLink);
+            return;
+        }
 
         instance.LinkToAppSettings(target);
         UpdateTree();

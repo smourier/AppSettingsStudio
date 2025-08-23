@@ -9,6 +9,8 @@
 	<ItemGroup>
 		<Using Include="Microsoft.Extensions.Configuration" />
 		<Using Include="Microsoft.Extensions.Configuration.Json" />
+		<Using Include="Microsoft.Extensions.FileProviders" />
+		<Using Include="Microsoft.Extensions.Primitives" />
 		<Using Include="System" />
 		<Using Include="System.Collections.Generic" />
 		<Using Include="System.ComponentModel" />
