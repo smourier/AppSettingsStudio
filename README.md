@@ -91,7 +91,7 @@ You can also import an existing settings, from a fellow developer for example, b
 
 
 ## Dynamic settings change
-You can enable an application's settings to change at the same time you edit it AppSettings Studio. There are two requirements:
+You can enable an application's settings to change *at the same time* you edit it AppSettings Studio. There are two requirements:
 
 1) the application must follow .NET Configurations's [IOptionsMonitor pattern](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/configuration/options#ioptionsmonitor)
 2) the application must be configured with the `SettingsOptions.MonitorChanges` option (see above)
