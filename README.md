@@ -31,6 +31,8 @@ The solution also contains a **Sample.ConsoleApp** console application that demo
 ## Enabling an application
 To be able to use AppSettings Studio, an application must be "enabled". For that, all is needed is to inject AppSettings Studio's `ConfigurationProvider` service into the application using standard .NET dependency injection, something like that:
 
+    // add a reference to AppSettingsStudio.Configuration.dll
+    ...
     using var host = Host.CreateDefaultBuilder(args)
     ...
     .ConfigureAppConfiguration((context, config) =>
