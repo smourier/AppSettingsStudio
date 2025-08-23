@@ -22,7 +22,7 @@ The solution consists of two main components:
 
 1. **AppSettingsStudio.Configuration** assembly – a standard [.NET Configuration Provider](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/configuration#configuration-providers). This must be included in any application that should integrate with the AppSettings Studio application.
 
-2. **AppSettings Studio** application (WinForms) – a desktop tool that enables developers to configure all registered applications.
+2. **AppSettings Studio** application (WinForms) – a desktop tool that enables developers to configure all registered applications. Note it requires Microsoft's WebView2 to be installed.
 
 The solution also contains a **Sample.ConsoleApp** console application that demonstrate how it works.
  
