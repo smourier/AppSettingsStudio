@@ -20,6 +20,8 @@ Possible use cases:
 * Easy settings change using with a syntax coloring enabled Json editor
 * etc.
 
+Note this tool's objective is not to share common `appsettings.json` between developpers. For that, there's already source control. It's quite the opposite: allow every developer to centralize and manage all personal custom settings and secrets for all applications they're working on, independently from other developers, and without doing any modification of common "official" appsettings possibly put in source control.
+
 The solution consists of two main components:
 
 1. **AppSettingsStudio.Configuration** assembly – a standard [.NET Configuration Provider](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/configuration#configuration-providers). This must be included in any application that should integrate with the AppSettings Studio application.
