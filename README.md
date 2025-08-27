@@ -77,11 +77,11 @@ Now, this setting's json, with a content initialized from the gathered `appsetti
 
 <img width="669" height="327" alt="Editable Settings" src="https://github.com/user-attachments/assets/61889a41-4619-4b50-a020-67c7c788a2d0" />
 
-Note: since the editor is based on Monaco, you can use standard Monaco shortcuts, so for example ALT+SHIFT+F reformats the JSON).
+Note: since the editor is based on Monaco, you can use standard Monaco shortcuts, so for example ALT+SHIFT+F reformats the JSON, you can use the mouse wheel for zooming in & out, etc.
 
-Now, when you restart the .NET application, it will use the new settings. If the application supports it, changes can be reflected dynamically (see next chapter).
+Now, when you restart the .NET application, it will use the new settings. If the application supports it, changes can also be reflected dynamically in real-time (see next chapter).
 
-You can configure more than one settings per application, but only one is considered as *active*: the one that has the icon with a small green "O" overlay:
+You can configure more than one settings per instance of an application, but only one is considered as *active*: the one that has the icon with a small green "O" overlay:
 
 <img width="257" height="232" alt="Active Settings" src="https://github.com/user-attachments/assets/33338fe2-f094-4785-98f0-6c4d5c2f1266" />
 
@@ -102,7 +102,7 @@ You can enable an application's settings to change *at the same time* you edit i
 
 The Sample.ConsoleApp project demonstrates this.
 
-What it does is continuously display the value of one of it's custom settings property:
+What this sample code does is continuously display the value of one of it's custom settings property:
 
     ...
     // get a loggger from DI
@@ -124,7 +124,7 @@ What it does is continuously display the value of one of it's custom settings pr
         public string Name { get; set; } = string.Empty;
     }    
 
-Just run it and change the settings in AppSettings Studio at the same time. Each time you save, the application reflects it. Here we have change the Position's Name to "Joe Smith Senior" and undo:
+Just run it and change the settings in AppSettings Studio at the same time. Each time you save, the application reflects it. Here changed the Position's Name to "Joe Smith Senior" and undo:
 
 <img width="1128" height="630" alt="Settings Live Change Windows" src="https://github.com/user-attachments/assets/05a32e91-d064-45c3-8587-3e058548fa7c" />
 
@@ -137,7 +137,7 @@ AppSettings Studio has the concept of "root paths". They are configured director
 
 By default, only one root path exists: `%USERPROFILE%\.AppSettingsStudio`, so for example `C:\Users\<your login>\.AppSettingsStudio`, but you can add others.
 
-This can be used to share settings among multiple developers, but this is also how you can configure .NET apps running in WSL.
+This can be used for a certain level of settings sharing among multiple developers, but this is also how you can configure .NET apps running in WSL.
 
 Once you have started an enabled .NET application in WSL at least once, open AppSettings Studio and select the "File" / "Root Paths" menu
 
@@ -151,7 +151,7 @@ Two root paths are now configured:
 
 <img width="1086" height="521" alt="Two Root Paths" src="https://github.com/user-attachments/assets/10d0c031-edb3-4983-b81e-28274b864f57" />
 
-AppSettings Studio shows you the .NET app running in WSL:
+Now, AppSettings Studio shows you .NET apps running in WSL and .NET apps running in Windows:
 
 <img width="872" height="452" alt="WSL dotnet" src="https://github.com/user-attachments/assets/89f18e46-dc35-464c-b61f-f349f166c81e" />
 
@@ -164,7 +164,7 @@ AppSettings Studio allows centralization of all these settings in one place, for
 
 <img width="287" height="338" alt="Debug Only" src="https://github.com/user-attachments/assets/ebb4a6d6-08a0-4c12-a0bd-9bf3edfce838" />
 
-But once it's been also run in Release, there are now two child nodes under the application node, prefixed by Debug and Release:
+But once it's been also run in Release (so the Release `appsettings.json` file has been *gathered*), there are now two child nodes under the application node, prefixed by Debug and Release:
 
 <img width="269" height="329" alt="image" src="https://github.com/user-attachments/assets/3a51b42e-879f-4583-bdef-bdcb1af4c23d" />
 
