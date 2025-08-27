@@ -17,7 +17,7 @@ Possible use cases:
 * Avoid storing secrets in source control repository (`appsettings.json` files can just contain comments and placeholders)
 * Simplify settings management for the same application deployed or used differently (debug vs release, v1 vs v2, WSL vs Windows, git submodules, multiple repo clones, etc.)
 * Easy support for dynamic settings changes
-* Easy settings change using with a syntax coloring enabled Json editor
+* Easy settings change with a syntax coloring enabled Json editor
 * etc.
 
 Note this tool's objective is not to share common `appsettings.json` between developpers. For that, there's already source control. It's quite the opposite: allow every developer to centralize and manage all personal custom settings and secrets for all applications they're working on, independently from other developers, and without doing any modification of common "official" appsettings possibly put in source control.
