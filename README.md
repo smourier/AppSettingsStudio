@@ -17,8 +17,10 @@ Possible use cases:
 * Avoid storing secrets in source control repository (`appsettings.json` files can just contain comments and placeholders)
 * Simplify settings management for the same application deployed or used differently (debug vs release, v1 vs v2, WSL vs Windows, git submodules, multiple repo clones, etc.)
 * Easy support for dynamic settings changes
-* Easy settings change using with a syntax coloring enabled Json editor
+* Easy settings change with a syntax coloring enabled Json editor
 * etc.
+
+Note this tool's objective is not to share common `appsettings.json` between developpers. For that, there's already source control. It's quite the opposite: allow every developer to centralize and manage all personal custom settings and secrets for all applications they're working on, independently from other developers, and without doing any modification of common "official" appsettings possibly put in source control.
 
 The solution consists of two main components:
 
@@ -75,9 +77,11 @@ Now, this setting's json, with a content initialized from the gathered `appsetti
 
 <img width="669" height="327" alt="Editable Settings" src="https://github.com/user-attachments/assets/61889a41-4619-4b50-a020-67c7c788a2d0" />
 
-Now, when you restart the .NET application, it will use the new settings. If the application supports it, changes can be reflected dynamically (see next chapter).
+Note: since the editor is based on Monaco, you can use standard Monaco shortcuts, so for example ALT+SHIFT+F reformats the JSON, you can use the mouse wheel for zooming in & out, etc.
 
-You can configure more than one settings per application, but only one is considered as *active*: the one that has the icon with a small green "O" overlay:
+Now, when you restart the .NET application, it will use the new settings. If the application supports it, changes can also be reflected dynamically in real-time (see next chapter).
+
+You can configure more than one settings per instance of an application, but only one is considered as *active*: the one that has the icon with a small green "O" overlay:
 
 <img width="257" height="232" alt="Active Settings" src="https://github.com/user-attachments/assets/33338fe2-f094-4785-98f0-6c4d5c2f1266" />
 
@@ -98,7 +102,7 @@ You can enable an application's settings to change *at the same time* you edit i
 
 The Sample.ConsoleApp project demonstrates this.
 
-What it does is continuously display the value of one of it's custom settings property:
+What this sample code does is continuously display the value of one of it's custom settings property:
 
     ...
     // get a loggger from DI
@@ -120,7 +124,7 @@ What it does is continuously display the value of one of it's custom settings pr
         public string Name { get; set; } = string.Empty;
     }    
 
-Just run it and change the settings in AppSettings Studio at the same time. Each time you save, the application reflects it. Here we have change the Position's Name to "Joe Smith Senior" and undo:
+Just run it and change the settings in AppSettings Studio at the same time. Each time you save, the application reflects it. Here changed the Position's Name to "Joe Smith Senior" and undo:
 
 <img width="1128" height="630" alt="Settings Live Change Windows" src="https://github.com/user-attachments/assets/05a32e91-d064-45c3-8587-3e058548fa7c" />
 
@@ -133,7 +137,7 @@ AppSettings Studio has the concept of "root paths". They are configured director
 
 By default, only one root path exists: `%USERPROFILE%\.AppSettingsStudio`, so for example `C:\Users\<your login>\.AppSettingsStudio`, but you can add others.
 
-This can be used to share settings among multiple developers, but this is also how you can configure .NET apps running in WSL.
+This can be used for a certain level of settings sharing among multiple developers, but this is also how you can configure .NET apps running in WSL.
 
 Once you have started an enabled .NET application in WSL at least once, open AppSettings Studio and select the "File" / "Root Paths" menu
 
@@ -147,7 +151,7 @@ Two root paths are now configured:
 
 <img width="1086" height="521" alt="Two Root Paths" src="https://github.com/user-attachments/assets/10d0c031-edb3-4983-b81e-28274b864f57" />
 
-AppSettings Studio shows you the .NET app running in WSL:
+Now, AppSettings Studio shows you .NET apps running in WSL and .NET apps running in Windows:
 
 <img width="872" height="452" alt="WSL dotnet" src="https://github.com/user-attachments/assets/89f18e46-dc35-464c-b61f-f349f166c81e" />
 
@@ -160,7 +164,7 @@ AppSettings Studio allows centralization of all these settings in one place, for
 
 <img width="287" height="338" alt="Debug Only" src="https://github.com/user-attachments/assets/ebb4a6d6-08a0-4c12-a0bd-9bf3edfce838" />
 
-But once it's been also run in Release, there are now two child nodes under the application node, prefixed by Debug and Release:
+But once it's been also run in Release (so the Release `appsettings.json` file has been *gathered*), there are now two child nodes under the application node, prefixed by Debug and Release:
 
 <img width="269" height="329" alt="image" src="https://github.com/user-attachments/assets/3a51b42e-879f-4583-bdef-bdcb1af4c23d" />
 
@@ -175,7 +179,23 @@ You then can choose a source settings to link to:
 
 <img width="1040" height="554" alt="Browse Links" src="https://github.com/user-attachments/assets/162b0479-5102-4c66-a8ee-50e94eacf1e6" />
 
-Now, each time you change a source setting using the JSON editor, it will be reflected in all linked virtual settings.
+Now, each time you change a source setting using the JSON editor, it will be reflected in all linked virtual settings:
+
 <img width="1080" height="518" alt="Link" src="https://github.com/user-attachments/assets/c40e1bc8-8f4d-49d9-89e2-56c8d463157e" />
 
 Note: creating links between Windows and WSL is not supported.
+
+## Variables
+AppSettings Studio supports two types of variables that you can use in virtual settings JSON properties values (not keys):
+
+1) AppSettings Studio's **Global variables**. They can be declared using the `@(name of variable)` syntax.
+2) **Environment variables**.  They can be declared using the `$(name of variable)` syntax.
+
+To declare an AppSettings Studio variable just select the "Edit", "Global Variables..." menu:
+
+<img width="267" height="104" alt="Global Variables" src="https://github.com/user-attachments/assets/12cdda57-7544-441d-bbc8-503887316e41" />
+
+A Global Variable is a key + value pair, and you can use the key anywhere in a JSON property value (it can be in the middle of the property value):
+
+<img width="1080" height="668" alt="image" src="https://github.com/user-attachments/assets/5e1f3be4-19e7-4ac5-9098-63abd28eb10a" />
+
