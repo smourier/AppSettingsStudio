@@ -43,8 +43,8 @@
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Web.WebView2" Version="1.0.3537.50" />
-		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.9" />
-		<PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.9" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.10" />
+		<PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.10" />
 	</ItemGroup>
 
 	<ItemGroup>
