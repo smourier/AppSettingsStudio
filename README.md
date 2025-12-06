@@ -13,6 +13,7 @@ Possible use cases:
 
 * Centralized management of `appsettings.json` files
 * Enable per-developper app settings configuration
+* Get rid of appsettings.Development.json files (and all questions they rise)
 * Avoid storing per-developer `appsettings.json` files in source control repository
 * Avoid storing secrets in source control repository (`appsettings.json` files can just contain comments and placeholders)
 * Simplify settings management for the same application deployed or used differently (debug vs release, v1 vs v2, WSL vs Windows, git submodules, multiple repo clones, etc.)
