@@ -285,6 +285,9 @@ internal static class Utilities
         ArgumentNullException.ThrowIfNull(directoryPath);
 
         var rootDir = new DirectoryInfo(directoryPath);
+        if (!rootDir.Exists)
+            return;
+
         var basePath = rootDir.FullName;
 
         if (includeBaseDirectory && rootDir.Parent != null)

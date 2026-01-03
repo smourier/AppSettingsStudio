@@ -3,6 +3,7 @@ namespace AppSettingsStudio;
 internal class Program
 {
     internal static Task _monacoInstalledTask = null!;
+    private static string _webView2DownloadUrl = "https://go.microsoft.com/fwlink/p/?LinkId=2124703";
 
     [AllowNull]
     public static IHost Host { get; private set; }
@@ -18,7 +19,7 @@ internal class Program
         }
         catch (Exception ex)
         {
-            MessageBoxUtilities.ShowError(null, $"Failed to check for WebView2 runtime. Please ensure you have the latest version installed. Inner error: {ex.GetInterestingExceptionMessage()}");
+            MessageBoxUtilities.ShowError(null, $"Failed to check for WebView2 runtime. Please ensure you have the latest version installed, or install it from{Environment.NewLine}{Environment.NewLine}{_webView2DownloadUrl}{Environment.NewLine}{Environment.NewLine}Inner error: {ex.GetInterestingExceptionMessage()}");
             return;
         }
 

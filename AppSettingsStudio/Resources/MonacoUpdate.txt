@@ -1,9 +1,0 @@
-﻿1. go to https://microsoft.github.io/monaco-editor/
-2. note version name, for example "0.44.0"
-3. download version using "download link", extract it
-5. zip the vs folder (in the .zip the vs should be visible as the one and only item)
-6. rename the zippped files as "vs.<version>.zip", for example "vs.0.44.0.zip"
-7. delete the old vsxxx.zip and put the new one
-8. make sure the new one (for example)'s action in Visual Studio properties is still "Embedded resource"
-
-9. make sure vs\language\typescript\tsWorker.js is in there or change the code in MonacoResources.cs that checks for it

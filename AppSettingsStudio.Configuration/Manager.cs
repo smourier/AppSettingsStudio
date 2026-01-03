@@ -36,6 +36,7 @@ public class Manager
 
         var name = DateTime.Now;
         var zipFilePath = Path.Combine(targetDirectoryPath, $"Backup{DirectoryName}{name:yyyy-MM-dd-HH-mm-ss}.zip");
+        Utilities.PathEnsureDirectory(Path.GetDirectoryName(zipFilePath)!);
         using var zip = ZipFile.Open(zipFilePath, ZipArchiveMode.Create, entryNameEncoding);
         foreach (var path in rootPaths)
         {

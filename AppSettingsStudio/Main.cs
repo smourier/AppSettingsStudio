@@ -53,6 +53,7 @@ public partial class Main : Form
         Settings.Current.RestoreTree(treeViewSettings);
     }
 
+    [Obsolete("Keep compatible with older .NET")]
     protected override void OnClosing(CancelEventArgs e)
     {
         if (_currentJsonFilePath != null && _currentJsonFileHasChanged &&
