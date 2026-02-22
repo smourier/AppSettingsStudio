@@ -1,8 +1,25 @@
 # AppSettings Studio
-A graphical interface for centralized management of .NET `appsettings.json` files. It offers a unified view to edit, validate, and apply configuration changes across multiple projects or executables—including WSL on Windows—with support for live updates.
+A graphical interface centralized management of .NET `appsettings.json` files. It offers a unified view to edit, validate, and apply configuration changes across multiple projects or executables—including WSL on Windows—with support for live updates.
 
 
 <img width="1080" height="518" alt="AppSettings Studio" src="https://github.com/user-attachments/assets/65e7db1c-77b6-4fd3-abb6-0b34dd6e2ea6" />
+
+
+## At a glance
+* Centralize per-developer `appsettings.json` for all your .NET apps (Web, Desktop, etc.) without editing repo files.
+* Manage multiple instances of the same app (Debug/Release, versions, WSL/Windows).
+* Optional live updates when your app uses `IOptionsMonitor`.
+
+## How it works
+1. Add the `AppSettingsStudio.Configuration` provider to your app.
+2. Run the app once so its `appsettings.json` is gathered.
+3. Use the desktop app to create a virtual settings file and make it active.
+4. Restart the app (or use live updates) to apply changes.
+
+## Quick start
+1. Follow the steps in [Enabling an application](#enabling-an-application).
+2. Start your app once, then open AppSettings Studio to edit settings.
+3. Create a virtual settings file and make it active.
 
 
 AppSettings Studio builds on `Microsoft.Extensions.Logging.Configuration` and specifically leverages the JSON provider.
