@@ -235,6 +235,8 @@ Right click the "Files" node, or any folder under it, to organize your files:
 * "Add existing File..." adds one or more files. The picker is filtered to `*.json` by default, but you can pick any file.
 * "Remove" (or the Delete key) takes a file or folder out of the tree. The file on disk is never touched.
 
+<img width="1079" height="658" alt="Files" src="https://github.com/user-attachments/assets/da6ede23-ae3c-4631-b4e1-2f7c56dc85b0" />
+
 Each file appears under its name on disk and opens in the same JSON editor as the rest, read only when the file itself is read only on disk. These files can also be chosen as either side of a comparison (see the previous chapter). The whole "Files" tree, with its folders and files, is saved with your settings and restored the next time you open the app, including which folders were expanded.
 
 ## Variables
