@@ -213,7 +213,7 @@ There are two ways to open a comparison:
 * the "View", "Compare..." menu, which opens with the currently selected node already set as the left side.
 * right click any node that has a JSON editor and select "Compare to...".
 
-<!-- add a screenshot of the compare window here -->
+<img width="1286" height="787" alt="Comparing settings" src="https://github.com/user-attachments/assets/e12564ff-e0e6-4649-be19-27002532e740" />
 
 Either side can be chosen, or changed later, through the same tree browser used elsewhere in the app, so you are not limited to the two nodes you started from. The toolbar offers a few options, all remembered between sessions:
 
