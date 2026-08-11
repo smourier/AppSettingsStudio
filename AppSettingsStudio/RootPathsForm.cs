@@ -59,7 +59,7 @@ public partial class RootPathsForm : Form
         if (path == null || path.EqualsIgnoreCase(_rootPath))
             return;
 
-        if (this.ShowConfirm($"Are you sure you want to remove '{path}'?") != DialogResult.Yes)
+        if (this.ShowConfirm(string.Format(Res.ConfirmRemovePath, path)) != DialogResult.Yes)
             return;
 
         var index = listViewPaths.Items.OfType<ListViewItem>().IndexOf(i => i.Text.EqualsIgnoreCase(path));

@@ -114,5 +114,209 @@ namespace AppSettingsStudio.Resources {
                 return ResourceManager.GetString("Warning", resourceCulture);
             }
         }
+        
+        internal static string DiffLeftLabel {
+            get {
+                return ResourceManager.GetString("DiffLeftLabel", resourceCulture);
+            }
+        }
+        
+        internal static string DiffRightLabel {
+            get {
+                return ResourceManager.GetString("DiffRightLabel", resourceCulture);
+            }
+        }
+        
+        internal static string DiffSideBySide {
+            get {
+                return ResourceManager.GetString("DiffSideBySide", resourceCulture);
+            }
+        }
+        
+        internal static string DiffIgnoreWhitespace {
+            get {
+                return ResourceManager.GetString("DiffIgnoreWhitespace", resourceCulture);
+            }
+        }
+        
+        internal static string DiffWordWrap {
+            get {
+                return ResourceManager.GetString("DiffWordWrap", resourceCulture);
+            }
+        }
+        
+        internal static string DiffShowWhitespace {
+            get {
+                return ResourceManager.GetString("DiffShowWhitespace", resourceCulture);
+            }
+        }
+        
+        internal static string DiffRefresh {
+            get {
+                return ResourceManager.GetString("DiffRefresh", resourceCulture);
+            }
+        }
+        
+        internal static string DiffChooseNode {
+            get {
+                return ResourceManager.GetString("DiffChooseNode", resourceCulture);
+            }
+        }
+        
+        internal static string DiffChooseLeft {
+            get {
+                return ResourceManager.GetString("DiffChooseLeft", resourceCulture);
+            }
+        }
+        
+        internal static string DiffChooseRight {
+            get {
+                return ResourceManager.GetString("DiffChooseRight", resourceCulture);
+            }
+        }
+        
+        internal static string DiffTitle {
+            get {
+                return ResourceManager.GetString("DiffTitle", resourceCulture);
+            }
+        }
+        
+        internal static string DiffTitleFormat {
+            get {
+                return ResourceManager.GetString("DiffTitleFormat", resourceCulture);
+            }
+        }
+        
+        internal static string DiffIdentical {
+            get {
+                return ResourceManager.GetString("DiffIdentical", resourceCulture);
+            }
+        }
+        
+        internal static string DiffStatsFormat {
+            get {
+                return ResourceManager.GetString("DiffStatsFormat", resourceCulture);
+            }
+        }
+        
+        internal static string DiffChooseTwoNodes {
+            get {
+                return ResourceManager.GetString("DiffChooseTwoNodes", resourceCulture);
+            }
+        }
+        
+        internal static string DiffComputing {
+            get {
+                return ResourceManager.GetString("DiffComputing", resourceCulture);
+            }
+        }
+        
+        internal static string Compare {
+            get {
+                return ResourceManager.GetString("Compare", resourceCulture);
+            }
+        }
+        
+        internal static string CompareTo {
+            get {
+                return ResourceManager.GetString("CompareTo", resourceCulture);
+            }
+        }
+        
+        internal static string ConfirmDiscardChanges {
+            get {
+                return ResourceManager.GetString("ConfirmDiscardChanges", resourceCulture);
+            }
+        }
+        
+        internal static string ConfirmDeleteInstance {
+            get {
+                return ResourceManager.GetString("ConfirmDeleteInstance", resourceCulture);
+            }
+        }
+        
+        internal static string ConfirmDeleteLinkedVirtualSettings {
+            get {
+                return ResourceManager.GetString("ConfirmDeleteLinkedVirtualSettings", resourceCulture);
+            }
+        }
+        
+        internal static string ConfirmDeleteVirtualSettings {
+            get {
+                return ResourceManager.GetString("ConfirmDeleteVirtualSettings", resourceCulture);
+            }
+        }
+        
+        internal static string ExportSuccess {
+            get {
+                return ResourceManager.GetString("ExportSuccess", resourceCulture);
+            }
+        }
+        
+        internal static string SaveFormat {
+            get {
+                return ResourceManager.GetString("SaveFormat", resourceCulture);
+            }
+        }
+        
+        internal static string PickAppSettingsTitle {
+            get {
+                return ResourceManager.GetString("PickAppSettingsTitle", resourceCulture);
+            }
+        }
+        
+        internal static string JsonFilesFilter {
+            get {
+                return ResourceManager.GetString("JsonFilesFilter", resourceCulture);
+            }
+        }
+        
+        internal static string ConfirmOverwriteFile {
+            get {
+                return ResourceManager.GetString("ConfirmOverwriteFile", resourceCulture);
+            }
+        }
+        
+        internal static string InvalidVirtualSettingsName {
+            get {
+                return ResourceManager.GetString("InvalidVirtualSettingsName", resourceCulture);
+            }
+        }
+        
+        internal static string DuplicateVirtualSettingsName {
+            get {
+                return ResourceManager.GetString("DuplicateVirtualSettingsName", resourceCulture);
+            }
+        }
+        
+        internal static string WebView2CheckError {
+            get {
+                return ResourceManager.GetString("WebView2CheckError", resourceCulture);
+            }
+        }
+        
+        internal static string ConfirmRemovePath {
+            get {
+                return ResourceManager.GetString("ConfirmRemovePath", resourceCulture);
+            }
+        }
+        
+        internal static string AddVariableTitle {
+            get {
+                return ResourceManager.GetString("AddVariableTitle", resourceCulture);
+            }
+        }
+        
+        internal static string ModifyVariableTitle {
+            get {
+                return ResourceManager.GetString("ModifyVariableTitle", resourceCulture);
+            }
+        }
+        
+        internal static string ConfirmDeleteVariable {
+            get {
+                return ResourceManager.GetString("ConfirmDeleteVariable", resourceCulture);
+            }
+        }
     }
 }

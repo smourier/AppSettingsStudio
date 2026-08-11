@@ -19,7 +19,7 @@ internal class Program
         }
         catch (Exception ex)
         {
-            MessageBoxUtilities.ShowError(null, $"Failed to check for WebView2 runtime. Please ensure you have the latest version installed, or install it from{Environment.NewLine}{Environment.NewLine}{_webView2DownloadUrl}{Environment.NewLine}{Environment.NewLine}Inner error: {ex.GetInterestingExceptionMessage()}");
+            MessageBoxUtilities.ShowError(null, string.Format(Res.WebView2CheckError, Environment.NewLine, _webView2DownloadUrl, ex.GetInterestingExceptionMessage()));
             return;
         }
 

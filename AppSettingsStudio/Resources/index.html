@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>AppSettings Studio - Copyright (C) 2014-2025 Simon Mourier. All rights reserved.</title>
+    <title>AppSettings Studio - Copyright (C) 2014-2026 Simon Mourier. All rights reserved.</title>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     <link rel="stylesheet" data-name="vs/editor/editor.main" href="./vs/editor/editor.main.css" />
     <style>
@@ -26,77 +26,74 @@
 <body>
     <div id="container"></div>
     <script src="./vs/loader.js"></script>
-    <script>require.config({ paths: { 'vs': './vs' } });</script>
-    <script src="./vs/editor/editor.main.nls.js"></script>
-    <script src="./vs/editor/editor.main.js"></script>
     <script>
-        // https://github.com/microsoft/vscode/blob/main/src/vs/platform/opener/common/opener.ts
-        var openerService = {
-            open: function (resource, options) {
-                chrome.webview.hostObjects.sync.settings.onEvent(12, JSON.stringify({ resource: resource, options: options }));
-            }
-        };
+        require.config({ paths: { 'vs': './vs' } });
 
-        monaco.editor.onDidCreateEditor(evt => {
-            chrome.webview.hostObjects.sync.settings.onEvent(5);
-        });
+        var editor;
 
-        var options = JSON.parse(chrome.webview.hostObjects.sync.settings.getOptions());
-        var editor = monaco.editor.create(document.getElementById('container'), options,
-            {
-                openerService: openerService
-            }
-        );
+        require(['vs/editor/editor.main'], function () {
 
-        //monaco.editor.addKeybindingRules([
-        //    {
-        //        keybinding: monaco.KeyCode.F1,
-        //        command: null,
-        //    }
-        //]);
+            // https://github.com/microsoft/vscode/blob/main/src/vs/platform/opener/common/opener.ts
+            var openerService = {
+                open: function (resource, options) {
+                    chrome.webview.hostObjects.sync.settings.onEvent(12, JSON.stringify({ resource: resource, options: options }));
+                }
+            };
 
-        editor.getModel().onDidChangeContent(evt => {
-            chrome.webview.hostObjects.sync.settings.onEvent(2);
-        });
+            monaco.editor.onDidCreateEditor(evt => {
+                chrome.webview.hostObjects.sync.settings.onEvent(5);
+            });
 
-        editor.onDidPaste(evt => {
-            chrome.webview.hostObjects.sync.settings.onEvent(13, JSON.stringify(evt));
-        });
+            var options = JSON.parse(chrome.webview.hostObjects.sync.settings.getOptions());
+            editor = monaco.editor.create(document.getElementById('container'), options,
+                {
+                    openerService: openerService
+                }
+            );
 
-        editor.onDidChangeModelLanguage(evt => {
-            chrome.webview.hostObjects.sync.settings.onEvent(10, JSON.stringify(evt));
-        });
+            editor.getModel().onDidChangeContent(evt => {
+                chrome.webview.hostObjects.sync.settings.onEvent(2);
+            });
 
-        editor.onDidChangeConfiguration(evt => {
-            // get first item's index (in first array property of object) that is true
-            var index = Object.values(evt).find(e => Array.isArray(e)).findIndex(v => v);
-            if (index) {
-                chrome.webview.hostObjects.sync.settings.onEvent(11, JSON.stringify({ index: index }));
-            }
-        });
+            editor.onDidPaste(evt => {
+                chrome.webview.hostObjects.sync.settings.onEvent(13, JSON.stringify(evt));
+            });
 
-        editor.onDidBlurEditorText(evt => {
-            chrome.webview.hostObjects.sync.settings.onEvent(6, JSON.stringify(evt));
-        });
+            editor.onDidChangeModelLanguage(evt => {
+                chrome.webview.hostObjects.sync.settings.onEvent(10, JSON.stringify(evt));
+            });
 
-        editor.onDidFocusEditorText(evt => {
-            chrome.webview.hostObjects.sync.settings.onEvent(7, JSON.stringify(evt));
-        });
+            editor.onDidChangeConfiguration(evt => {
+                var index = Object.values(evt).find(e => Array.isArray(e)).findIndex(v => v);
+                if (index) {
+                    chrome.webview.hostObjects.sync.settings.onEvent(11, JSON.stringify({ index: index }));
+                }
+            });
 
-        editor.onDidChangeCursorPosition(evt => {
-            chrome.webview.hostObjects.sync.settings.onEvent(8, JSON.stringify(evt));
-        });
+            editor.onDidBlurEditorText(evt => {
+                chrome.webview.hostObjects.sync.settings.onEvent(6, JSON.stringify(evt));
+            });
 
-        editor.onDidChangeCursorSelection(evt => {
-            chrome.webview.hostObjects.sync.settings.onEvent(9, JSON.stringify(evt));
-        });
+            editor.onDidFocusEditorText(evt => {
+                chrome.webview.hostObjects.sync.settings.onEvent(7, JSON.stringify(evt));
+            });
 
-        editor.onKeyUp(evt => {
-            chrome.webview.hostObjects.sync.settings.onEvent(3, JSON.stringify(evt));
-        });
+            editor.onDidChangeCursorPosition(evt => {
+                chrome.webview.hostObjects.sync.settings.onEvent(8, JSON.stringify(evt));
+            });
 
-        editor.onKeyDown(evt => {
-            chrome.webview.hostObjects.sync.settings.onEvent(4, JSON.stringify(evt));
+            editor.onDidChangeCursorSelection(evt => {
+                chrome.webview.hostObjects.sync.settings.onEvent(9, JSON.stringify(evt));
+            });
+
+            editor.onKeyUp(evt => {
+                chrome.webview.hostObjects.sync.settings.onEvent(3, JSON.stringify(evt));
+            });
+
+            editor.onKeyDown(evt => {
+                chrome.webview.hostObjects.sync.settings.onEvent(4, JSON.stringify(evt));
+            });
+
         });
 
         function getFindWidget() {
@@ -165,22 +162,28 @@
             editor.revealPosition(position);
         }
 
-        function loadFromHost() {
-            editor.setValue('');
-            loadChunksFromHost();
-        }
-
-        function loadChunksFromHost() {
+        function loadFromHost(state) {
+            var full = '';
             var text = chrome.webview.hostObjects.sync.settings.load();
-            if (text === null) {
-                return;
+            while (text !== null) {
+                full += text;
+                text = chrome.webview.hostObjects.sync.settings.load();
             }
 
-            var lines = editor.getModel().getLineCount();
-            var col = editor.getModel().getLineMaxColumn(lines);
-            var range = new monaco.Range(lines, col, lines, col);
-            editor.executeEdits('', [{ range: range, text: text }])
-            setTimeout(loadChunksFromHost, 0); // allows refresh of the page in the browser while loading in background
+            editor.setValue(full);
+
+            if (state) {
+                editor.layout();
+                editor.restoreViewState(state);
+            }
+        }
+
+        function getEditorViewState() {
+            if (!editor)
+                return null;
+
+            var vs = editor.saveViewState();
+            return vs ? JSON.stringify(vs) : null;
         }
 
     </script>

@@ -136,4 +136,145 @@
   <data name="CannotLink" xml:space="preserve">
     <value>Links cannot be established between Unix paths with Windows paths.</value>
   </data>
+  <data name="DiffLeftLabel" xml:space="preserve">
+    <value>Left:</value>
+  </data>
+  <data name="DiffRightLabel" xml:space="preserve">
+    <value>Right:</value>
+  </data>
+  <data name="DiffSideBySide" xml:space="preserve">
+    <value>Side by side</value>
+  </data>
+  <data name="DiffIgnoreWhitespace" xml:space="preserve">
+    <value>Ignore whitespace</value>
+  </data>
+  <data name="DiffWordWrap" xml:space="preserve">
+    <value>Word wrap</value>
+  </data>
+  <data name="DiffShowWhitespace" xml:space="preserve">
+    <value>Show whitespace</value>
+  </data>
+  <data name="DiffRefresh" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="DiffChooseNode" xml:space="preserve">
+    <value>(choose a node...)</value>
+  </data>
+  <data name="DiffChooseLeft" xml:space="preserve">
+    <value>Choose the left side</value>
+  </data>
+  <data name="DiffChooseRight" xml:space="preserve">
+    <value>Choose the right side</value>
+  </data>
+  <data name="DiffTitle" xml:space="preserve">
+    <value>Compare</value>
+  </data>
+  <data name="DiffTitleFormat" xml:space="preserve">
+    <value>Compare {0} to {1}</value>
+  </data>
+  <data name="DiffIdentical" xml:space="preserve">
+    <value>The two sides are identical.</value>
+  </data>
+  <data name="DiffStatsFormat" xml:space="preserve">
+    <value>{0} difference(s), {1} line(s) added, {2} line(s) removed.</value>
+  </data>
+  <data name="DiffChooseTwoNodes" xml:space="preserve">
+    <value>Choose two nodes to compare.</value>
+  </data>
+  <data name="DiffComputing" xml:space="preserve">
+    <value>Computing differences...</value>
+  </data>
+  <data name="Compare" xml:space="preserve">
+    <value>&amp;Compare...</value>
+  </data>
+  <data name="CompareTo" xml:space="preserve">
+    <value>&amp;Compare to...</value>
+  </data>
+  <data name="ConfirmDiscardChanges" xml:space="preserve">
+    <value>The current json file '{0}' has changed, do you want to discard the changes?</value>
+  </data>
+  <data name="ConfirmDeleteInstance" xml:space="preserve">
+    <value>Are you sure you want to delete '{0}' instance (note: this will *not* delete pointed appsettings*.json files)?</value>
+  </data>
+  <data name="ConfirmDeleteLinkedVirtualSettings" xml:space="preserve">
+    <value>These virtual settings '{0}' have {1} virtual settings linked to it, are you sure you want to delete it and its links too?</value>
+  </data>
+  <data name="ConfirmDeleteVirtualSettings" xml:space="preserve">
+    <value>Are you sure you want to delete '{0}' virtual settings?</value>
+  </data>
+  <data name="ExportSuccess" xml:space="preserve">
+    <value>All settings have been exported successfully to {0}.</value>
+  </data>
+  <data name="SaveFormat" xml:space="preserve">
+    <value>&amp;Save {0}</value>
+  </data>
+  <data name="PickAppSettingsTitle" xml:space="preserve">
+    <value>Pick an existing appsettings*.json file</value>
+  </data>
+  <data name="JsonFilesFilter" xml:space="preserve">
+    <value>JSON Files (appsettings*.json)|appsettings*.json|All Files (*.*)|*.*</value>
+  </data>
+  <data name="ConfirmOverwriteFile" xml:space="preserve">
+    <value>The file '{0}' already exists in instance's directory, do you want to overwrite it?</value>
+  </data>
+  <data name="InvalidVirtualSettingsName" xml:space="preserve">
+    <value>Name must start with 'appsettings' and end with '.json'.</value>
+  </data>
+  <data name="DuplicateVirtualSettingsName" xml:space="preserve">
+    <value>There's already a virtual settings with this name.</value>
+  </data>
+  <data name="WebView2CheckError" xml:space="preserve">
+    <value>Failed to check for WebView2 runtime. Please ensure you have the latest version installed, or install it from{0}{0}{1}{0}{0}Inner error: {2}</value>
+  </data>
+  <data name="ConfirmRemovePath" xml:space="preserve">
+    <value>Are you sure you want to remove '{0}'?</value>
+  </data>
+  <data name="AddVariableTitle" xml:space="preserve">
+    <value>Add new global variable</value>
+  </data>
+  <data name="ModifyVariableTitle" xml:space="preserve">
+    <value>Modify global variable</value>
+  </data>
+  <data name="ConfirmDeleteVariable" xml:space="preserve">
+    <value>Are you sure you want to delete the '{0}' global variable?</value>
+  </data>
+  <data name="UiCategory" xml:space="preserve">
+    <value>UI</value>
+  </data>
+  <data name="JsonEditorCategory" xml:space="preserve">
+    <value>Json Editor</value>
+  </data>
+  <data name="DiffCategory" xml:space="preserve">
+    <value>Diff</value>
+  </data>
+  <data name="ConfigurationCategory" xml:space="preserve">
+    <value>Configuration</value>
+  </data>
+  <data name="RootNodesBoldDisplayName" xml:space="preserve">
+    <value>Display Root Nodes In Bold</value>
+  </data>
+  <data name="ViewTypeDisplayName" xml:space="preserve">
+    <value>View Type</value>
+  </data>
+  <data name="HierarchicalViewLevelsDisplayName" xml:space="preserve">
+    <value>Hierarchical View Levels</value>
+  </data>
+  <data name="AllowAppSettingsModificationsDisplayName" xml:space="preserve">
+    <value>Allow App Settings Modifications</value>
+  </data>
+  <data name="JsonMinimapDisplayName" xml:space="preserve">
+    <value>Enable Minimap</value>
+  </data>
+  <data name="JsonThemeDisplayName" xml:space="preserve">
+    <value>Theme (vs, vs-dark, hc-light, hc-black)</value>
+  </data>
+  <data name="JsonFontSizeDisplayName" xml:space="preserve">
+    <value>Font Size</value>
+  </data>
+  <data name="DiffAutoRefreshDisplayName" xml:space="preserve">
+    <value>Automatically Refresh On File Change</value>
+  </data>
+  <data name="RootPathsDisplayName" xml:space="preserve">
+    <value>Additional Root Paths</value>
+  </data>
 </root>

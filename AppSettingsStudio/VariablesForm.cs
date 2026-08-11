@@ -61,7 +61,7 @@ public partial class VariablesForm : Form
     {
         var dlg = new VariableForm
         {
-            Text = "Add new global variable"
+            Text = Res.AddVariableTitle
         };
         if (dlg.ShowDialog(this) != DialogResult.OK)
             return;
@@ -80,7 +80,7 @@ public partial class VariablesForm : Form
 
         var dlg = new VariableForm()
         {
-            Text = "Modify global variable"
+            Text = Res.ModifyVariableTitle
         };
 
         dlg.textBoxName.Enabled = false;
@@ -103,7 +103,7 @@ public partial class VariablesForm : Form
         if (variable == null)
             return;
 
-        if (this.ShowConfirm($"Are you sure you want to delete the '{variable.Name}' global variable?") != DialogResult.Yes)
+        if (this.ShowConfirm(string.Format(Res.ConfirmDeleteVariable, variable.Name)) != DialogResult.Yes)
             return;
 
         if (Manager.Variables.Remove(variable.Name))

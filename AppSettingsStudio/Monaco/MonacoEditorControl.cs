@@ -10,10 +10,10 @@ public partial class MonacoEditorControl : Control
 #endif
     }
 
+    private readonly Dictionary<string, string> _viewStates = new(StringComparer.OrdinalIgnoreCase);
     private readonly MonacoObject _controlObject = new();
     private string _text = string.Empty;
     private string? _document;
-    private readonly Task _webView2Initialized;
 
     public event EventHandler<MonacoEventArgs>? Event;
 
@@ -27,7 +27,7 @@ public partial class MonacoEditorControl : Control
 
         WebView.CoreWebView2InitializationCompleted += CoreWebView2InitializationCompleted;
         var env = CoreWebView2Environment.CreateAsync(userDataFolder: Settings.WebView2UserDataPath);
-        _webView2Initialized = WebView.EnsureCoreWebView2Async(env.Result); // calling Result might not be ideal I guess, but simpler here
+        WebView.EnsureCoreWebView2Async(env.Result); // calling Result might not be ideal I guess, but simpler here
     }
 
     private async void CoreWebView2InitializationCompleted(object? sender, CoreWebView2InitializationCompletedEventArgs e)
@@ -89,13 +89,21 @@ public partial class MonacoEditorControl : Control
 
     public bool IsReadOnly { get; private set; }
 
-    public async Task LoadText(string text)
+    public Task LoadText(string text) => LoadTextCore(text, "null");
+    public Task LoadText(string text, string key)
+    {
+        ArgumentNullException.ThrowIfNull(key);
+        var state = _viewStates.TryGetValue(key, out var json) ? json : "null";
+        return LoadTextCore(text, state);
+    }
+
+    private async Task LoadTextCore(string text, string viewStateArg)
     {
         ArgumentNullException.ThrowIfNull(text);
 
         await SetReadOnly(false);
         _document = text;
-        await ExecuteScript($"loadFromHost()");
+        await ExecuteScript($"loadFromHost({viewStateArg})");
         _text = text;
         BeginInvoke(() => OnTextChanged(EventArgs.Empty));
     }
@@ -104,6 +112,16 @@ public partial class MonacoEditorControl : Control
     {
         await ExecuteScript("editor.updateOptions({readOnly:" + readOnly.ToString().ToLowerInvariant() + "});");
         IsReadOnly = readOnly;
+    }
+
+    public async Task SaveViewState(string key)
+    {
+        ArgumentNullException.ThrowIfNull(key);
+        var json = await ExecuteScriptAsync<string>("getEditorViewState()");
+        if (string.IsNullOrEmpty(json) || json == "null")
+            return;
+
+        _viewStates[key] = json;
     }
 
     public Task<string?> GetEditorText() => ExecuteScriptAsync<string>("editor.getValue()");

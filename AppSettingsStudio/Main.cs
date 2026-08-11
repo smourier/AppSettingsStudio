@@ -5,9 +5,13 @@ public partial class Main : Form
     private readonly TreeNode _rootNode;
     private MonacoEditorControl? _editorControl;
     private string? _currentJsonFilePath;
+    private string? _currentViewStateKey;
     private bool _currentJsonFileHasChanged;
     private Encoding? _currentJsonFileEncoding;
     private readonly ConcurrentDictionary<string, Manager> _managers = new(StringComparer.OrdinalIgnoreCase);
+    private ToolStripMenuItem? _compareToAppSettingsMenuItem;
+    private ToolStripMenuItem? _compareToInstanceMenuItem;
+
     internal static Main? _current;
     internal readonly Font _boldFont;
 
@@ -39,7 +43,39 @@ public partial class Main : Form
         _rootNode = treeViewSettings.Nodes.Add(Res.Applications);
         _rootNode.SetImageIndex(ImageLibraryIndex.Resource);
 
+        SetupCompareMenus();
         LoadMonacoEditor();
+    }
+
+    private void SetupCompareMenus()
+    {
+        var compareMenuItem = new ToolStripMenuItem(Res.Compare);
+        compareMenuItem.Click += (s, e) => OpenCompare();
+        viewToolStripMenuItem.DropDownItems.Add(new ToolStripSeparator());
+        viewToolStripMenuItem.DropDownItems.Add(compareMenuItem);
+
+        _compareToAppSettingsMenuItem = new ToolStripMenuItem(Res.CompareTo);
+        _compareToAppSettingsMenuItem.Click += (s, e) => OpenCompare();
+        contextMenuStripAppSettings.Items.Add(new ToolStripSeparator());
+        contextMenuStripAppSettings.Items.Add(_compareToAppSettingsMenuItem);
+
+        _compareToInstanceMenuItem = new ToolStripMenuItem(Res.CompareTo);
+        _compareToInstanceMenuItem.Click += (s, e) => OpenCompare();
+        contextMenuStripInstance.Items.Add(new ToolStripSeparator());
+        contextMenuStripInstance.Items.Add(_compareToInstanceMenuItem);
+        contextMenuStripInstance.Opening += ContextMenuStripInstance_Opening;
+    }
+
+    private void OpenCompare()
+    {
+        var left = CompareSide.FromTag(treeViewSettings.SelectedNode?.Tag);
+        var dlg = new DiffForm(_managers.Values, left, null);
+        dlg.Show(this);
+    }
+
+    private void ContextMenuStripInstance_Opening(object? sender, CancelEventArgs e)
+    {
+        _compareToInstanceMenuItem?.Enabled = CompareSide.FromTag(treeViewSettings.SelectedNode?.Tag) != null;
     }
 
     public string DefaultRootPath { get; }
@@ -57,7 +93,7 @@ public partial class Main : Form
     protected override void OnClosing(CancelEventArgs e)
     {
         if (_currentJsonFilePath != null && _currentJsonFileHasChanged &&
-            this.ShowConfirm($"The current json file '{Path.GetFileName(_currentJsonFilePath)}' has changed, do you want to discard the changes?") != DialogResult.Yes)
+            this.ShowConfirm(string.Format(Res.ConfirmDiscardChanges, Path.GetFileName(_currentJsonFilePath))) != DialogResult.Yes)
         {
             e.Cancel = true;
             return;
@@ -330,7 +366,7 @@ public partial class Main : Form
     {
         if (treeViewSettings.SelectedNode?.Tag is Instance instance)
         {
-            if (this.ShowConfirm($"Are you sure you want to delete '{instance.DisplayName}' instance (note: this will *not* delete pointed appsettings*.json files)?") != DialogResult.Yes)
+            if (this.ShowConfirm(string.Format(Res.ConfirmDeleteInstance, instance.DisplayName)) != DialogResult.Yes)
                 return;
 
             var app = instance.App.Manager.GetApp(instance.App.Name);
@@ -353,12 +389,12 @@ public partial class Main : Form
             var links = appSettings.GetLinksTo();
             if (links.Count > 0)
             {
-                if (this.ShowConfirm($"These virtual settings '{appSettings.Name}' have {links.Count} virtual settings linked to it, are you sure you want to delete it and its links too?") != DialogResult.Yes)
+                if (this.ShowConfirm(string.Format(Res.ConfirmDeleteLinkedVirtualSettings, appSettings.Name, links.Count)) != DialogResult.Yes)
                     return;
             }
             else
             {
-                if (this.ShowConfirm($"Are you sure you want to delete '{appSettings.Name}' virtual settings?") != DialogResult.Yes)
+                if (this.ShowConfirm(string.Format(Res.ConfirmDeleteVirtualSettings, appSettings.Name)) != DialogResult.Yes)
                     return;
             }
 
@@ -412,7 +448,7 @@ public partial class Main : Form
         Settings.Current.LastExportDirectoryPath = dlg.SelectedPath;
         Settings.Current.SerializeToConfiguration();
         var path = Manager.ExportAsZipFile(dlg.SelectedPath, _managers.Keys);
-        this.ShowMessage($"All settings have been exported successfully to {path}.");
+        this.ShowMessage(string.Format(Res.ExportSuccess, path));
     }
 
     private void ShowRootPaths()
@@ -460,19 +496,26 @@ public partial class Main : Form
         if (treeViewSettings.SelectedNode?.Tag is IWithFilePath jsonFilePath && jsonFilePath.FilePath != null && IOUtilities.PathIsFile(jsonFilePath.FilePath))
         {
             var filePath = jsonFilePath.FilePath;
+            var nodeKey = treeViewSettings.SelectedNode.FullPath;
             _ = loadText();
             async Task loadText()
             {
                 if (_editorControl == null)
                     return;
 
+                if (_currentViewStateKey != null)
+                {
+                    await _editorControl.SaveViewState(_currentViewStateKey);
+                }
+
                 var text = EncodingDetector.ReadAllText(filePath, EncodingDetectorMode.UseUTF8AsDefault, out _currentJsonFileEncoding);
-                await _editorControl.LoadText(text);
+
+                await _editorControl.LoadText(text, nodeKey);
                 _editorControl.Visible = true;
                 _currentJsonFilePath = filePath;
+                _currentViewStateKey = nodeKey;
                 _currentJsonFileHasChanged = false;
 
-                await _editorControl.MoveEditorTo(1, 1);
                 await _editorControl.SetReadOnly(jsonFilePath.IsReadOnly);
 
                 BeginInvoke(() =>
@@ -490,10 +533,17 @@ public partial class Main : Form
         }
         else
         {
+            var outgoing = _currentViewStateKey;
             _currentJsonFilePath = null;
+            _currentViewStateKey = null;
             Text = AssemblyUtilities.GetProduct();
             if (_editorControl == null)
                 return;
+
+            if (outgoing != null)
+            {
+                _ = _editorControl.SaveViewState(outgoing);
+            }
 
             _editorControl.Visible = false;
 
@@ -510,7 +560,7 @@ public partial class Main : Form
     {
         if (_currentJsonFilePath != null && _currentJsonFileHasChanged)
         {
-            if (this.ShowConfirm($"The current json file '{Path.GetFileName(_currentJsonFilePath)}' has changed, do you want to discard the changes?") != DialogResult.Yes)
+            if (this.ShowConfirm(string.Format(Res.ConfirmDiscardChanges, Path.GetFileName(_currentJsonFilePath))) != DialogResult.Yes)
             {
                 e.Cancel = true;
                 return;
@@ -538,11 +588,11 @@ public partial class Main : Form
         saveToolStripMenuItem.Enabled = _currentJsonFilePath != null && _currentJsonFileHasChanged;
         if (saveToolStripMenuItem.Enabled)
         {
-            saveToolStripMenuItem.Text = $"&Save {Path.GetFileName(_currentJsonFilePath)}";
+            saveToolStripMenuItem.Text = string.Format(Res.SaveFormat, Path.GetFileName(_currentJsonFilePath));
         }
         else
         {
-            saveToolStripMenuItem.Text = $"&Save {treeViewSettings.SelectedNode?.Text}";
+            saveToolStripMenuItem.Text = string.Format(Res.SaveFormat, treeViewSettings.SelectedNode?.Text);
         }
     }
 
@@ -564,10 +614,7 @@ public partial class Main : Form
         }
         else
         {
-            if (node != null)
-            {
-                node.ContextMenuStrip = null;
-            }
+            node?.ContextMenuStrip = null;
         }
     }
 
@@ -614,9 +661,9 @@ public partial class Main : Form
         {
             Multiselect = false,
             CheckFileExists = true,
-            Title = "Pick an existing appsettings*.json file",
+            Title = Res.PickAppSettingsTitle,
             DefaultExt = ".json",
-            Filter = "JSON Files (appsettings*.json)|appsettings*.json|All Files (*.*)|*.*"
+            Filter = Res.JsonFilesFilter
         };
 
         var initialPath = Settings.Current.LastImportDirectoryPath.Nullify();
@@ -642,7 +689,7 @@ public partial class Main : Form
         var target = Path.Combine(instance.DirectoryPath, Path.GetFileName(ofd.FileName));
         if (IOUtilities.PathIsFile(target))
         {
-            if (this.ShowConfirm($"The file '{Path.GetFileName(target)}' already exists in instance's directory, do you want to overwrite it?") != DialogResult.Yes)
+            if (this.ShowConfirm(string.Format(Res.ConfirmOverwriteFile, Path.GetFileName(target))) != DialogResult.Yes)
                 return;
         }
 
@@ -693,6 +740,7 @@ public partial class Main : Form
     private void ContextMenuStripAppSettings_Opening(object sender, CancelEventArgs e)
     {
         makeActiveToolStripMenuItem.Enabled = treeViewSettings.SelectedNode?.Tag is AppSettings appSetting && !appSetting.IsActive;
+        _compareToAppSettingsMenuItem?.Enabled = CompareSide.FromTag(treeViewSettings.SelectedNode?.Tag) != null;
     }
 
     private void TreeViewSettings_AfterLabelEdit(object sender, NodeLabelEditEventArgs e)
@@ -706,7 +754,7 @@ public partial class Main : Form
         if (!e.Label.StartsWith("appsettings", StringComparison.OrdinalIgnoreCase) || !e.Label.EndsWith(".json", StringComparison.OrdinalIgnoreCase))
         {
             e.CancelEdit = true;
-            this.ShowWarning("Name must start with 'appsettings' and end with '.json'.");
+            this.ShowWarning(Res.InvalidVirtualSettingsName);
             e.Node.BeginEdit();
             return;
         }
@@ -714,7 +762,7 @@ public partial class Main : Form
         if (appSettings.Instance.AppSettings.Any(a => !a.IsLink && a.Name.EqualsIgnoreCase(e.Label)))
         {
             e.CancelEdit = true;
-            this.ShowWarning("There's already a virtual settings with this name.");
+            this.ShowWarning(Res.DuplicateVirtualSettingsName);
             e.Node.BeginEdit();
             return;
         }

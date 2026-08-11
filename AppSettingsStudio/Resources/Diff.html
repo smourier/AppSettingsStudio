@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AppSettings Studio - Copyright (C) 2014-2026 Simon Mourier. All rights reserved.</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <link rel="stylesheet" data-name="vs/editor/editor.main" href="./vs/editor/editor.main.css" />
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            font-family: Segoe UI, sans-serif;
+        }
+
+        #root {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        #titles {
+            display: flex;
+            flex: 0 0 auto;
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+            #titles > div {
+                flex: 1 1 0;
+                padding: 4px 10px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+        #diffWrap {
+            position: relative;
+            flex: 1 1 auto;
+            min-height: 0;
+        }
+
+        #container {
+            position: absolute;
+            inset: 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="root">
+        <div id="titles">
+            <div id="leftTitle"></div>
+            <div id="rightTitle"></div>
+        </div>
+        <div id="diffWrap">
+            <div id="container"></div>
+        </div>
+    </div>
+    <script src="./vs/loader.js"></script>
+    <script>
+        require.config({ paths: { 'vs': './vs' } });
+
+        var diffEditor;
+
+        function diffOptions(p) {
+            return {
+                readOnly: true,
+                originalEditable: false,
+                automaticLayout: true,
+                renderSideBySide: !!p.renderSideBySide,
+                ignoreTrimWhitespace: !!p.ignoreTrimWhitespace,
+                wordWrap: p.wordWrap ? 'on' : 'off',
+                renderWhitespace: p.renderWhitespace ? 'all' : 'none'
+            };
+        }
+
+        require(['vs/editor/editor.main'], function () {
+            diffEditor = monaco.editor.createDiffEditor(document.getElementById('container'), {
+                readOnly: true,
+                originalEditable: false,
+                automaticLayout: true,
+                renderSideBySide: true
+            });
+
+            diffEditor.onDidUpdateDiff(reportDiff);
+            chrome.webview.addEventListener('message', function (evt) { handleMessage(evt.data); });
+            chrome.webview.postMessage(JSON.stringify({ kind: 'ready' }));
+        });
+
+        function reportDiff() {
+            var changes = null;
+            try {
+                if (typeof diffEditor.getLineChanges === 'function') {
+                    changes = diffEditor.getLineChanges();
+                }
+                else {
+                    var r = diffEditor.getDiffComputationResult && diffEditor.getDiffComputationResult();
+                    changes = r ? (r.changes || []) : null;
+                }
+            } catch (e) {
+                changes = null;
+            }
+
+            if (!changes)
+                return;
+
+            var added = 0, removed = 0;
+            for (var i = 0; i < changes.length; i++) {
+                var c = changes[i];
+                if (c.originalEndLineNumber !== undefined) {
+                    removed += c.originalEndLineNumber === 0 ? 0 : (c.originalEndLineNumber - c.originalStartLineNumber + 1);
+                    added += c.modifiedEndLineNumber === 0 ? 0 : (c.modifiedEndLineNumber - c.modifiedStartLineNumber + 1);
+                }
+            }
+
+            try {
+                chrome.webview.postMessage(JSON.stringify({ kind: 'diffStats', count: changes.length, added: added, removed: removed }));
+            } catch (e) {
+            }
+        }
+
+        function handleMessage(p) {
+            if (!p || !diffEditor)
+                return;
+
+            switch (p.kind) {
+                case 'setDiff':
+                    setDiff(p);
+                    break;
+
+                case 'options':
+                    diffEditor.updateOptions(diffOptions(p));
+                    break;
+
+                case 'theme':
+                    if (p.theme) {
+                        monaco.editor.setTheme(p.theme);
+                    }
+                    break;
+            }
+        }
+
+        function setDiff(p) {
+            if (p.theme) {
+                monaco.editor.setTheme(p.theme);
+            }
+
+            diffEditor.updateOptions(diffOptions(p));
+
+            document.getElementById('leftTitle').textContent = p.leftTitle || '';
+            document.getElementById('rightTitle').textContent = p.rightTitle || '';
+
+            var original = monaco.editor.createModel(p.original || '', p.originalLanguage || undefined);
+            var modified = monaco.editor.createModel(p.modified || '', p.modifiedLanguage || undefined);
+
+            var previous = diffEditor.getModel();
+            diffEditor.setModel({ original: original, modified: modified });
+            if (previous) {
+                previous.original && previous.original.dispose();
+                previous.modified && previous.modified.dispose();
+            }
+        }
+    </script>
+</body>
+</html>

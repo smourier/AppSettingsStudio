@@ -16,7 +16,7 @@
 	  <None Remove="appsettings.json" />
 	  <None Remove="Resources\ImageLibrary32.bmp" />
 	  <None Remove="Resources\index.html" />
-	  <None Remove="Resources\vs.0.52.2.zip" />
+	  <None Remove="Resources\Diff.html" />
 	  <None Remove="Resources\vs.0.55.1.zip" />
 	</ItemGroup>
 
@@ -24,7 +24,8 @@
 		<EmbeddedResource Include="Resources\AppSettingsStudio.ico" />
 		<EmbeddedResource Include="Resources\ImageLibrary32.bmp" />
 		<EmbeddedResource Include="Resources\index.html" />
-		<EmbeddedResource Include="Resources\vs.0.52.2.zip" />
+		<EmbeddedResource Include="Resources\Diff.html" />
+		<EmbeddedResource Include="Resources\vs.0.55.1.zip" />
 		<Compile Update="Resources\Res.Designer.cs">
 			<DesignTime>True</DesignTime>
 			<AutoGen>True</AutoGen>
@@ -43,9 +44,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.Web.WebView2" Version="1.0.4022.49" />
-		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.9" />
-		<PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.9" />
+		<PackageReference Include="Microsoft.Web.WebView2" Version="1.0.4129.50" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.10" />
+		<PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.10" />
 	</ItemGroup>
 
 	<ItemGroup>

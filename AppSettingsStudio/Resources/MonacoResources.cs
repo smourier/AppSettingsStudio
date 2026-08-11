@@ -10,6 +10,10 @@ public static class MonacoResources
     [MaybeNull]
     public static string IndexFilePath { get; set; }
 
+    [NotNull]
+    [MaybeNull]
+    public static string DiffFilePath { get; set; }
+
     private static Task? _ensureMonacoFilesTask;
     private static readonly Lock _ensureMonacoFilesLock = new();
 
@@ -34,16 +38,12 @@ public static class MonacoResources
         var version = zip.Substring(startTok.Length, zip.Length - startTok.Length - ext.Length);
         MonacoFilesDirectoryPath = Path.Combine(Settings.TempDirectoryPath, "Monaco", version);
 
-        const string indexName = "index.html";
-        IndexFilePath = Path.Combine(MonacoFilesDirectoryPath, indexName);
-        using var indexStream = asm.GetManifestResourceStream(typeof(MonacoResources).Namespace + "." + indexName) ?? throw new InvalidOperationException();
+        IndexFilePath = ExtractHtml(asm, "index.html");
+        DiffFilePath = ExtractHtml(asm, "Diff.html");
 
-        IOUtilities.FileEnsureDirectory(IndexFilePath);
-        using var index = new FileStream(IndexFilePath, FileMode.Create, FileAccess.Write, FileShare.None);
-        indexStream.CopyTo(index);
-
-        // we check the last known file is there
-        var someFile = Path.Combine(MonacoFilesDirectoryPath, @"vs\language\typescript\tsWorker.js");
+        // we check the last known file is there. the 0.55.x layout dropped vs\language\typescript\tsWorker.js,
+        // so we probe monaco.contribution.js which the new build still ships.
+        var someFile = Path.Combine(MonacoFilesDirectoryPath, @"vs\language\typescript\monaco.contribution.js");
         var fi = new FileInfo(someFile);
         if (fi.Exists && fi.Length > 0)
         {
@@ -55,5 +55,15 @@ public static class MonacoResources
         using var archive = new ZipArchive(stream, ZipArchiveMode.Read);
         archive.ExtractToDirectory(MonacoFilesDirectoryPath, true);
         _ensureMonacoFilesTask = null;
+    }
+
+    private static string ExtractHtml(Assembly asm, string name)
+    {
+        var path = Path.Combine(MonacoFilesDirectoryPath, name);
+        using var resourceStream = asm.GetManifestResourceStream(typeof(MonacoResources).Namespace + "." + name) ?? throw new InvalidOperationException();
+        IOUtilities.FileEnsureDirectory(path);
+        using var file = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.None);
+        resourceStream.CopyTo(file);
+        return path;
     }
 }

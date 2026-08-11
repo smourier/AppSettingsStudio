@@ -49,18 +49,18 @@ public class Settings : Serializable<Settings>
     [Browsable(false)]
     public virtual float MainSpliterDistance { get => GetPropertyValue<float>(1.0f); set => SetPropertyValue(value); }
 
-    [Category("UI")]
-    [DisplayName("Display Root Nodes In Bold")]
+    [LocalizedCategory("Ui")]
+    [LocalizedDisplayName("RootNodesBold")]
     [DefaultValue(false)]
     public virtual bool RootNodesBold { get => GetPropertyValue(false); set => SetPropertyValue(value); }
 
-    [Category("UI")]
-    [DisplayName("View Type")]
+    [LocalizedCategory("Ui")]
+    [LocalizedDisplayName("ViewType")]
     [DefaultValue(ViewType.Flat)]
     public virtual ViewType ViewType { get => GetPropertyValue(ViewType.Flat); set => SetPropertyValue(value); }
 
-    [Category("UI")]
-    [DisplayName("Hiearchical View Levels")]
+    [LocalizedCategory("Ui")]
+    [LocalizedDisplayName("HierarchicalViewLevels")]
     [DefaultValue(1)]
     public virtual int HiearchicalViewLevels
     {
@@ -72,28 +72,45 @@ public class Settings : Serializable<Settings>
         }
     }
 
-    [Category("Json Editor")]
-    [DisplayName("AllowAppSettingsModifications")]
+    [LocalizedCategory("JsonEditor")]
+    [LocalizedDisplayName("AllowAppSettingsModifications")]
     [DefaultValue(false)]
     public virtual bool AllowAppSettingsModifications { get => GetPropertyValue(false); set => SetPropertyValue(value); }
 
-    [Category("Json Editor")]
-    [DisplayName("Enable Minimap")]
+    [LocalizedCategory("JsonEditor")]
+    [LocalizedDisplayName("JsonMinimap")]
     [DefaultValue(true)]
     public virtual bool JsonMinimap { get => GetPropertyValue(true); set => SetPropertyValue(value); }
 
-    [Category("Json Editor")]
-    [DisplayName("Theme (vs, vs-dark, hc-light, hc-black)")]
+    [LocalizedCategory("JsonEditor")]
+    [LocalizedDisplayName("JsonTheme")]
     [DefaultValue("vs")]
     public virtual string? JsonTheme { get => GetPropertyValue("vs"); set { SetPropertyValue(value); } }
 
-    [Category("Json Editor")]
-    [DisplayName("Font Size")]
+    [LocalizedCategory("JsonEditor")]
+    [LocalizedDisplayName("JsonFontSize")]
     [DefaultValue(13d)]
     public virtual double JsonFontSize { get => GetPropertyValue(13d); set { SetPropertyValue(value); } }
 
-    [Category("Configuration")]
-    [DisplayName("Additional Root Paths")]
+    [Browsable(false)]
+    public virtual bool DiffRenderSideBySide { get => GetPropertyValue(true); set => SetPropertyValue(value); }
+
+    [Browsable(false)]
+    public virtual bool DiffIgnoreTrimWhitespace { get => GetPropertyValue(false); set => SetPropertyValue(value); }
+
+    [Browsable(false)]
+    public virtual bool DiffWordWrap { get => GetPropertyValue(false); set => SetPropertyValue(value); }
+
+    [Browsable(false)]
+    public virtual bool DiffRenderWhitespace { get => GetPropertyValue(false); set => SetPropertyValue(value); }
+
+    [LocalizedCategory("Diff")]
+    [LocalizedDisplayName("DiffAutoRefresh")]
+    [DefaultValue(true)]
+    public virtual bool DiffAutoRefresh { get => GetPropertyValue(true); set => SetPropertyValue(value); }
+
+    [LocalizedCategory("Configuration")]
+    [LocalizedDisplayName("RootPaths")]
     [Editor(typeof(RootPathsEditor), typeof(UITypeEditor))]
     [TypeConverter(typeof(CollectionListTypeConverter))]
     public virtual string[]? RootPaths { get => GetPropertyValue<string[]>(); set { SetPropertyValue(value); } }
