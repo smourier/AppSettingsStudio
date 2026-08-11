@@ -17,7 +17,7 @@ partial class DiffForm
 
     private void InitializeComponent()
     {
-        components = new System.ComponentModel.Container();
+        ComponentResourceManager resources = new ComponentResourceManager(typeof(DiffForm));
         toolStrip = new ClickThroughToolStrip();
         leftLabel = new ToolStripLabel();
         leftButton = new ToolStripButton();
@@ -37,115 +37,110 @@ partial class DiffForm
         statusStrip.SuspendLayout();
         ((ISupportInitialize)webView).BeginInit();
         SuspendLayout();
-        //
+        // 
         // toolStrip
-        //
+        // 
         toolStrip.GripStyle = ToolStripGripStyle.Hidden;
         toolStrip.Items.AddRange(new ToolStripItem[] { leftLabel, leftButton, rightLabel, rightButton, toolStripSeparator1, optSideBySide, optIgnoreWhitespace, optWordWrap, optShowWhitespace, toolStripSeparator2, refreshButton });
-        toolStrip.Location = new Point(0, 0);
+        resources.ApplyResources(toolStrip, "toolStrip");
         toolStrip.Name = "toolStrip";
-        toolStrip.Size = new Size(1000, 25);
-        toolStrip.TabIndex = 0;
-        //
+        // 
         // leftLabel
-        //
+        // 
         leftLabel.Name = "leftLabel";
-        leftLabel.Text = "Left:";
-        //
+        resources.ApplyResources(leftLabel, "leftLabel");
+        // 
         // leftButton
-        //
+        // 
         leftButton.Name = "leftButton";
-        leftButton.ToolTipText = "Choose the left side";
+        resources.ApplyResources(leftButton, "leftButton");
         leftButton.Click += OnLeftClick;
-        //
+        // 
         // rightLabel
-        //
+        // 
         rightLabel.Name = "rightLabel";
-        rightLabel.Text = "Right:";
-        //
+        resources.ApplyResources(rightLabel, "rightLabel");
+        // 
         // rightButton
-        //
+        // 
         rightButton.Name = "rightButton";
-        rightButton.ToolTipText = "Choose the right side";
+        resources.ApplyResources(rightButton, "rightButton");
         rightButton.Click += OnRightClick;
-        //
+        // 
         // toolStripSeparator1
-        //
+        // 
         toolStripSeparator1.Name = "toolStripSeparator1";
-        //
+        resources.ApplyResources(toolStripSeparator1, "toolStripSeparator1");
+        // 
         // optSideBySide
-        //
+        // 
         optSideBySide.CheckOnClick = true;
         optSideBySide.Name = "optSideBySide";
-        optSideBySide.Text = "Side by side";
+        resources.ApplyResources(optSideBySide, "optSideBySide");
         optSideBySide.Click += OnOptionChanged;
-        //
+        // 
         // optIgnoreWhitespace
-        //
+        // 
         optIgnoreWhitespace.CheckOnClick = true;
         optIgnoreWhitespace.Name = "optIgnoreWhitespace";
-        optIgnoreWhitespace.Text = "Ignore whitespace";
+        resources.ApplyResources(optIgnoreWhitespace, "optIgnoreWhitespace");
         optIgnoreWhitespace.Click += OnOptionChanged;
-        //
+        // 
         // optWordWrap
-        //
+        // 
         optWordWrap.CheckOnClick = true;
         optWordWrap.Name = "optWordWrap";
-        optWordWrap.Text = "Word wrap";
+        resources.ApplyResources(optWordWrap, "optWordWrap");
         optWordWrap.Click += OnOptionChanged;
-        //
+        // 
         // optShowWhitespace
-        //
+        // 
         optShowWhitespace.CheckOnClick = true;
         optShowWhitespace.Name = "optShowWhitespace";
-        optShowWhitespace.Text = "Show whitespace";
+        resources.ApplyResources(optShowWhitespace, "optShowWhitespace");
         optShowWhitespace.Click += OnOptionChanged;
-        //
+        // 
         // toolStripSeparator2
-        //
+        // 
         toolStripSeparator2.Name = "toolStripSeparator2";
-        //
+        resources.ApplyResources(toolStripSeparator2, "toolStripSeparator2");
+        // 
         // refreshButton
-        //
+        // 
         refreshButton.Name = "refreshButton";
-        refreshButton.Text = "Refresh";
+        resources.ApplyResources(refreshButton, "refreshButton");
         refreshButton.Click += OnRefreshClick;
-        //
+        // 
         // statusStrip
-        //
+        // 
         statusStrip.Items.AddRange(new ToolStripItem[] { statusLabel });
-        statusStrip.Location = new Point(0, 678);
+        resources.ApplyResources(statusStrip, "statusStrip");
         statusStrip.Name = "statusStrip";
-        statusStrip.Size = new Size(1000, 22);
-        statusStrip.TabIndex = 1;
-        //
+        // 
         // statusLabel
-        //
+        // 
         statusLabel.Name = "statusLabel";
+        resources.ApplyResources(statusLabel, "statusLabel");
         statusLabel.Spring = true;
-        statusLabel.TextAlign = ContentAlignment.MiddleLeft;
-        //
+        // 
         // webView
-        //
+        // 
+        webView.AllowExternalDrop = true;
         webView.CreationProperties = null;
-        webView.Dock = DockStyle.Fill;
-        webView.Location = new Point(0, 25);
+        webView.DefaultBackgroundColor = Color.White;
+        resources.ApplyResources(webView, "webView");
         webView.Name = "webView";
-        webView.Size = new Size(1000, 653);
-        webView.TabIndex = 2;
         webView.ZoomFactor = 1D;
-        //
+        // 
         // DiffForm
-        //
-        AutoScaleDimensions = new SizeF(7F, 15F);
+        // 
+        resources.ApplyResources(this, "$this");
         AutoScaleMode = AutoScaleMode.Font;
-        ClientSize = new Size(1000, 700);
         Controls.Add(webView);
         Controls.Add(toolStrip);
         Controls.Add(statusStrip);
+        MinimizeBox = false;
         Name = "DiffForm";
-        StartPosition = FormStartPosition.CenterParent;
-        Text = "Compare";
         toolStrip.ResumeLayout(false);
         toolStrip.PerformLayout();
         statusStrip.ResumeLayout(false);

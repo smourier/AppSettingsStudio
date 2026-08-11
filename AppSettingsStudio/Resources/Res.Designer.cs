@@ -19,7 +19,7 @@ namespace AppSettingsStudio.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Res {
@@ -61,6 +61,24 @@ namespace AppSettingsStudio.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add new global variable.
+        /// </summary>
+        internal static string AddVariableTitle {
+            get {
+                return ResourceManager.GetString("AddVariableTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Allow App Settings Modifications.
+        /// </summary>
+        internal static string AllowAppSettingsModificationsDisplayName {
+            get {
+                return ResourceManager.GetString("AllowAppSettingsModificationsDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Applications.
         /// </summary>
         internal static string Applications {
@@ -79,6 +97,33 @@ namespace AppSettingsStudio.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &amp;Compare....
+        /// </summary>
+        internal static string Compare {
+            get {
+                return ResourceManager.GetString("Compare", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &amp;Compare to....
+        /// </summary>
+        internal static string CompareTo {
+            get {
+                return ResourceManager.GetString("CompareTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Configuration.
+        /// </summary>
+        internal static string ConfigurationCategory {
+            get {
+                return ResourceManager.GetString("ConfigurationCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Confirmation.
         /// </summary>
         internal static string Confirmation {
@@ -88,11 +133,317 @@ namespace AppSettingsStudio.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete &apos;{0}&apos; instance (note: this will *not* delete pointed appsettings*.json files)?.
+        /// </summary>
+        internal static string ConfirmDeleteInstance {
+            get {
+                return ResourceManager.GetString("ConfirmDeleteInstance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to These virtual settings &apos;{0}&apos; have {1} virtual settings linked to it, are you sure you want to delete it and its links too?.
+        /// </summary>
+        internal static string ConfirmDeleteLinkedVirtualSettings {
+            get {
+                return ResourceManager.GetString("ConfirmDeleteLinkedVirtualSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete the &apos;{0}&apos; global variable?.
+        /// </summary>
+        internal static string ConfirmDeleteVariable {
+            get {
+                return ResourceManager.GetString("ConfirmDeleteVariable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete &apos;{0}&apos; virtual settings?.
+        /// </summary>
+        internal static string ConfirmDeleteVirtualSettings {
+            get {
+                return ResourceManager.GetString("ConfirmDeleteVirtualSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The current json file &apos;{0}&apos; has changed, do you want to discard the changes?.
+        /// </summary>
+        internal static string ConfirmDiscardChanges {
+            get {
+                return ResourceManager.GetString("ConfirmDiscardChanges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The file &apos;{0}&apos; already exists in instance&apos;s directory, do you want to overwrite it?.
+        /// </summary>
+        internal static string ConfirmOverwriteFile {
+            get {
+                return ResourceManager.GetString("ConfirmOverwriteFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to remove &apos;{0}&apos;?.
+        /// </summary>
+        internal static string ConfirmRemovePath {
+            get {
+                return ResourceManager.GetString("ConfirmRemovePath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Automatically Refresh On File Change.
+        /// </summary>
+        internal static string DiffAutoRefreshDisplayName {
+            get {
+                return ResourceManager.GetString("DiffAutoRefreshDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Diff.
+        /// </summary>
+        internal static string DiffCategory {
+            get {
+                return ResourceManager.GetString("DiffCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose the left side.
+        /// </summary>
+        internal static string DiffChooseLeft {
+            get {
+                return ResourceManager.GetString("DiffChooseLeft", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (choose a node...).
+        /// </summary>
+        internal static string DiffChooseNode {
+            get {
+                return ResourceManager.GetString("DiffChooseNode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose the right side.
+        /// </summary>
+        internal static string DiffChooseRight {
+            get {
+                return ResourceManager.GetString("DiffChooseRight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose two nodes to compare..
+        /// </summary>
+        internal static string DiffChooseTwoNodes {
+            get {
+                return ResourceManager.GetString("DiffChooseTwoNodes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Computing differences....
+        /// </summary>
+        internal static string DiffComputing {
+            get {
+                return ResourceManager.GetString("DiffComputing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The two sides are identical..
+        /// </summary>
+        internal static string DiffIdentical {
+            get {
+                return ResourceManager.GetString("DiffIdentical", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ignore whitespace.
+        /// </summary>
+        internal static string DiffIgnoreWhitespace {
+            get {
+                return ResourceManager.GetString("DiffIgnoreWhitespace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Left:.
+        /// </summary>
+        internal static string DiffLeftLabel {
+            get {
+                return ResourceManager.GetString("DiffLeftLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Refresh.
+        /// </summary>
+        internal static string DiffRefresh {
+            get {
+                return ResourceManager.GetString("DiffRefresh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Right:.
+        /// </summary>
+        internal static string DiffRightLabel {
+            get {
+                return ResourceManager.GetString("DiffRightLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show whitespace.
+        /// </summary>
+        internal static string DiffShowWhitespace {
+            get {
+                return ResourceManager.GetString("DiffShowWhitespace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Side by side.
+        /// </summary>
+        internal static string DiffSideBySide {
+            get {
+                return ResourceManager.GetString("DiffSideBySide", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} difference(s), {1} line(s) added, {2} line(s) removed..
+        /// </summary>
+        internal static string DiffStatsFormat {
+            get {
+                return ResourceManager.GetString("DiffStatsFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Compare.
+        /// </summary>
+        internal static string DiffTitle {
+            get {
+                return ResourceManager.GetString("DiffTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Compare {0} to {1}.
+        /// </summary>
+        internal static string DiffTitleFormat {
+            get {
+                return ResourceManager.GetString("DiffTitleFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Word wrap.
+        /// </summary>
+        internal static string DiffWordWrap {
+            get {
+                return ResourceManager.GetString("DiffWordWrap", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There&apos;s already a virtual settings with this name..
+        /// </summary>
+        internal static string DuplicateVirtualSettingsName {
+            get {
+                return ResourceManager.GetString("DuplicateVirtualSettingsName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
         internal static string Error {
             get {
                 return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All settings have been exported successfully to {0}..
+        /// </summary>
+        internal static string ExportSuccess {
+            get {
+                return ResourceManager.GetString("ExportSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hierarchical View Levels.
+        /// </summary>
+        internal static string HierarchicalViewLevelsDisplayName {
+            get {
+                return ResourceManager.GetString("HierarchicalViewLevelsDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name must start with &apos;appsettings&apos; and end with &apos;.json&apos;..
+        /// </summary>
+        internal static string InvalidVirtualSettingsName {
+            get {
+                return ResourceManager.GetString("InvalidVirtualSettingsName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Json Editor.
+        /// </summary>
+        internal static string JsonEditorCategory {
+            get {
+                return ResourceManager.GetString("JsonEditorCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to JSON Files (appsettings*.json)|appsettings*.json|All Files (*.*)|*.*.
+        /// </summary>
+        internal static string JsonFilesFilter {
+            get {
+                return ResourceManager.GetString("JsonFilesFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Font Size.
+        /// </summary>
+        internal static string JsonFontSizeDisplayName {
+            get {
+                return ResourceManager.GetString("JsonFontSizeDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable Minimap.
+        /// </summary>
+        internal static string JsonMinimapDisplayName {
+            get {
+                return ResourceManager.GetString("JsonMinimapDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Theme (vs, vs-dark, hc-light, hc-black).
+        /// </summary>
+        internal static string JsonThemeDisplayName {
+            get {
+                return ResourceManager.GetString("JsonThemeDisplayName", resourceCulture);
             }
         }
         
@@ -107,6 +458,78 @@ namespace AppSettingsStudio.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Modify global variable.
+        /// </summary>
+        internal static string ModifyVariableTitle {
+            get {
+                return ResourceManager.GetString("ModifyVariableTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pick an existing appsettings*.json file.
+        /// </summary>
+        internal static string PickAppSettingsTitle {
+            get {
+                return ResourceManager.GetString("PickAppSettingsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Display Root Nodes In Bold.
+        /// </summary>
+        internal static string RootNodesBoldDisplayName {
+            get {
+                return ResourceManager.GetString("RootNodesBoldDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Root path doesn&apos;t exist yet..
+        /// </summary>
+        internal static string RootPathNotFound {
+            get {
+                return ResourceManager.GetString("RootPathNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Additional Root Paths.
+        /// </summary>
+        internal static string RootPathsDisplayName {
+            get {
+                return ResourceManager.GetString("RootPathsDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &amp;Save {0}.
+        /// </summary>
+        internal static string SaveFormat {
+            get {
+                return ResourceManager.GetString("SaveFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to UI.
+        /// </summary>
+        internal static string UiCategory {
+            get {
+                return ResourceManager.GetString("UiCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View Type.
+        /// </summary>
+        internal static string ViewTypeDisplayName {
+            get {
+                return ResourceManager.GetString("ViewTypeDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Warning.
         /// </summary>
         internal static string Warning {
@@ -115,207 +538,12 @@ namespace AppSettingsStudio.Resources {
             }
         }
         
-        internal static string DiffLeftLabel {
-            get {
-                return ResourceManager.GetString("DiffLeftLabel", resourceCulture);
-            }
-        }
-        
-        internal static string DiffRightLabel {
-            get {
-                return ResourceManager.GetString("DiffRightLabel", resourceCulture);
-            }
-        }
-        
-        internal static string DiffSideBySide {
-            get {
-                return ResourceManager.GetString("DiffSideBySide", resourceCulture);
-            }
-        }
-        
-        internal static string DiffIgnoreWhitespace {
-            get {
-                return ResourceManager.GetString("DiffIgnoreWhitespace", resourceCulture);
-            }
-        }
-        
-        internal static string DiffWordWrap {
-            get {
-                return ResourceManager.GetString("DiffWordWrap", resourceCulture);
-            }
-        }
-        
-        internal static string DiffShowWhitespace {
-            get {
-                return ResourceManager.GetString("DiffShowWhitespace", resourceCulture);
-            }
-        }
-        
-        internal static string DiffRefresh {
-            get {
-                return ResourceManager.GetString("DiffRefresh", resourceCulture);
-            }
-        }
-        
-        internal static string DiffChooseNode {
-            get {
-                return ResourceManager.GetString("DiffChooseNode", resourceCulture);
-            }
-        }
-        
-        internal static string DiffChooseLeft {
-            get {
-                return ResourceManager.GetString("DiffChooseLeft", resourceCulture);
-            }
-        }
-        
-        internal static string DiffChooseRight {
-            get {
-                return ResourceManager.GetString("DiffChooseRight", resourceCulture);
-            }
-        }
-        
-        internal static string DiffTitle {
-            get {
-                return ResourceManager.GetString("DiffTitle", resourceCulture);
-            }
-        }
-        
-        internal static string DiffTitleFormat {
-            get {
-                return ResourceManager.GetString("DiffTitleFormat", resourceCulture);
-            }
-        }
-        
-        internal static string DiffIdentical {
-            get {
-                return ResourceManager.GetString("DiffIdentical", resourceCulture);
-            }
-        }
-        
-        internal static string DiffStatsFormat {
-            get {
-                return ResourceManager.GetString("DiffStatsFormat", resourceCulture);
-            }
-        }
-        
-        internal static string DiffChooseTwoNodes {
-            get {
-                return ResourceManager.GetString("DiffChooseTwoNodes", resourceCulture);
-            }
-        }
-        
-        internal static string DiffComputing {
-            get {
-                return ResourceManager.GetString("DiffComputing", resourceCulture);
-            }
-        }
-        
-        internal static string Compare {
-            get {
-                return ResourceManager.GetString("Compare", resourceCulture);
-            }
-        }
-        
-        internal static string CompareTo {
-            get {
-                return ResourceManager.GetString("CompareTo", resourceCulture);
-            }
-        }
-        
-        internal static string ConfirmDiscardChanges {
-            get {
-                return ResourceManager.GetString("ConfirmDiscardChanges", resourceCulture);
-            }
-        }
-        
-        internal static string ConfirmDeleteInstance {
-            get {
-                return ResourceManager.GetString("ConfirmDeleteInstance", resourceCulture);
-            }
-        }
-        
-        internal static string ConfirmDeleteLinkedVirtualSettings {
-            get {
-                return ResourceManager.GetString("ConfirmDeleteLinkedVirtualSettings", resourceCulture);
-            }
-        }
-        
-        internal static string ConfirmDeleteVirtualSettings {
-            get {
-                return ResourceManager.GetString("ConfirmDeleteVirtualSettings", resourceCulture);
-            }
-        }
-        
-        internal static string ExportSuccess {
-            get {
-                return ResourceManager.GetString("ExportSuccess", resourceCulture);
-            }
-        }
-        
-        internal static string SaveFormat {
-            get {
-                return ResourceManager.GetString("SaveFormat", resourceCulture);
-            }
-        }
-        
-        internal static string PickAppSettingsTitle {
-            get {
-                return ResourceManager.GetString("PickAppSettingsTitle", resourceCulture);
-            }
-        }
-        
-        internal static string JsonFilesFilter {
-            get {
-                return ResourceManager.GetString("JsonFilesFilter", resourceCulture);
-            }
-        }
-        
-        internal static string ConfirmOverwriteFile {
-            get {
-                return ResourceManager.GetString("ConfirmOverwriteFile", resourceCulture);
-            }
-        }
-        
-        internal static string InvalidVirtualSettingsName {
-            get {
-                return ResourceManager.GetString("InvalidVirtualSettingsName", resourceCulture);
-            }
-        }
-        
-        internal static string DuplicateVirtualSettingsName {
-            get {
-                return ResourceManager.GetString("DuplicateVirtualSettingsName", resourceCulture);
-            }
-        }
-        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to check for WebView2 runtime. Please ensure you have the latest version installed, or install it from{0}{0}{1}{0}{0}Inner error: {2}.
+        /// </summary>
         internal static string WebView2CheckError {
             get {
                 return ResourceManager.GetString("WebView2CheckError", resourceCulture);
-            }
-        }
-        
-        internal static string ConfirmRemovePath {
-            get {
-                return ResourceManager.GetString("ConfirmRemovePath", resourceCulture);
-            }
-        }
-        
-        internal static string AddVariableTitle {
-            get {
-                return ResourceManager.GetString("AddVariableTitle", resourceCulture);
-            }
-        }
-        
-        internal static string ModifyVariableTitle {
-            get {
-                return ResourceManager.GetString("ModifyVariableTitle", resourceCulture);
-            }
-        }
-        
-        internal static string ConfirmDeleteVariable {
-            get {
-                return ResourceManager.GetString("ConfirmDeleteVariable", resourceCulture);
             }
         }
     }

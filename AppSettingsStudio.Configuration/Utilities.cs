@@ -380,7 +380,10 @@ internal static class Utilities
             passedList.Add(new StringList([]));
         }
 
-        if (list.Count <= 1)
+        if (list.Count == 0)
+            return [];
+
+        if (list.Count == 1)
             return [splitList[0].List.LastOrDefault() ?? string.Empty];
 
         do

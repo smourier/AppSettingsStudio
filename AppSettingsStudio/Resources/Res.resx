@@ -277,4 +277,7 @@
   <data name="RootPathsDisplayName" xml:space="preserve">
     <value>Additional Root Paths</value>
   </data>
+  <data name="RootPathNotFound" xml:space="preserve">
+    <value>Root path doesn't exist yet.</value>
+  </data>
 </root>

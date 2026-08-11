@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            ComponentResourceManager resources = new ComponentResourceManager(typeof(BrowserForm));
             tableLayoutPanelMain = new TableLayoutPanel();
             panelMain = new Panel();
             treeViewSettings = new TreeView();
@@ -41,39 +42,24 @@
             // 
             // tableLayoutPanelMain
             // 
-            tableLayoutPanelMain.ColumnCount = 1;
-            tableLayoutPanelMain.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            tableLayoutPanelMain.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            resources.ApplyResources(tableLayoutPanelMain, "tableLayoutPanelMain");
             tableLayoutPanelMain.Controls.Add(panelMain, 0, 0);
             tableLayoutPanelMain.Controls.Add(panelButtons, 0, 1);
-            tableLayoutPanelMain.Dock = DockStyle.Fill;
-            tableLayoutPanelMain.Location = new Point(0, 0);
             tableLayoutPanelMain.Name = "tableLayoutPanelMain";
-            tableLayoutPanelMain.RowCount = 2;
-            tableLayoutPanelMain.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanelMain.RowStyles.Add(new RowStyle(SizeType.Absolute, 30F));
-            tableLayoutPanelMain.Size = new Size(800, 450);
-            tableLayoutPanelMain.TabIndex = 2;
             // 
             // panelMain
             // 
             panelMain.Controls.Add(treeViewSettings);
-            panelMain.Dock = DockStyle.Fill;
-            panelMain.Location = new Point(3, 3);
+            resources.ApplyResources(panelMain, "panelMain");
             panelMain.Name = "panelMain";
-            panelMain.Size = new Size(794, 414);
-            panelMain.TabIndex = 0;
             // 
             // treeViewSettings
             // 
-            treeViewSettings.Dock = DockStyle.Fill;
+            resources.ApplyResources(treeViewSettings, "treeViewSettings");
             treeViewSettings.FullRowSelect = true;
             treeViewSettings.HideSelection = false;
-            treeViewSettings.Location = new Point(0, 0);
             treeViewSettings.Name = "treeViewSettings";
             treeViewSettings.ShowRootLines = false;
-            treeViewSettings.Size = new Size(794, 414);
-            treeViewSettings.TabIndex = 4;
             treeViewSettings.AfterSelect += TreeViewSettings_AfterSelect;
             treeViewSettings.MouseDoubleClick += TreeViewSettings_MouseDoubleClick;
             // 
@@ -81,51 +67,32 @@
             // 
             panelButtons.Controls.Add(buttonOk);
             panelButtons.Controls.Add(buttonCancel);
-            panelButtons.Dock = DockStyle.Fill;
-            panelButtons.Location = new Point(0, 420);
-            panelButtons.Margin = new Padding(0);
+            resources.ApplyResources(panelButtons, "panelButtons");
             panelButtons.Name = "panelButtons";
-            panelButtons.Size = new Size(800, 30);
-            panelButtons.TabIndex = 1;
             // 
             // buttonOk
             // 
-            buttonOk.Anchor = AnchorStyles.Right;
+            resources.ApplyResources(buttonOk, "buttonOk");
             buttonOk.DialogResult = DialogResult.OK;
-            buttonOk.ImeMode = ImeMode.NoControl;
-            buttonOk.Location = new Point(612, 0);
-            buttonOk.Margin = new Padding(4, 3, 4, 3);
             buttonOk.Name = "buttonOk";
-            buttonOk.Size = new Size(88, 27);
-            buttonOk.TabIndex = 0;
-            buttonOk.Text = "&OK";
             buttonOk.UseVisualStyleBackColor = true;
             // 
             // buttonCancel
             // 
-            buttonCancel.Anchor = AnchorStyles.Right;
+            resources.ApplyResources(buttonCancel, "buttonCancel");
             buttonCancel.CausesValidation = false;
             buttonCancel.DialogResult = DialogResult.Cancel;
-            buttonCancel.ImeMode = ImeMode.NoControl;
-            buttonCancel.Location = new Point(708, 0);
-            buttonCancel.Margin = new Padding(4, 3, 4, 3);
             buttonCancel.Name = "buttonCancel";
-            buttonCancel.Size = new Size(88, 27);
-            buttonCancel.TabIndex = 1;
-            buttonCancel.Text = "&Cancel";
             buttonCancel.UseVisualStyleBackColor = true;
             // 
             // BrowserForm
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
             Controls.Add(tableLayoutPanelMain);
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "BrowserForm";
-            StartPosition = FormStartPosition.CenterParent;
-            Text = "Link to an existing Virtual Settings";
             tableLayoutPanelMain.ResumeLayout(false);
             panelMain.ResumeLayout(false);
             panelButtons.ResumeLayout(false);

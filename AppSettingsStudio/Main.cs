@@ -478,7 +478,6 @@ public partial class Main : Form
     private void Hierarchical3LevelsToolStripMenuItem_Click(object sender, EventArgs e) => UpdateViewType((ToolStripMenuItem)sender);
     private void HierarchicalToolStripMenuItem_Click(object sender, EventArgs e) => UpdateViewType((ToolStripMenuItem)sender);
     private void RootPathsToolStripMenuItem_Click(object sender, EventArgs e) => ShowRootPaths();
-    private void OpenRootDirectoryPathToolStripMenuItem_Click(object sender, EventArgs e) => WinformsUtilities.OpenExplorer(Manager.GetDefaultRootPath());
     private void ExportToolStripMenuItem_Click(object sender, EventArgs e) => Export();
     private void SaveToolStripMenuItem_Click(object sender, EventArgs e) => _ = Save();
     private void OpenWithDefaultEditorToolStripMenuItem_Click(object sender, EventArgs e) => OpenWithDefaultEditor();
@@ -555,6 +554,19 @@ public partial class Main : Form
             }
         }
     }
+
+    private void OpenRootDirectoryPathToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        var path = Manager.GetDefaultRootPath();
+        if (path == null || !IOUtilities.PathIsDirectory(path))
+        {
+            this.ShowMessage(Res.RootPathNotFound);
+            return;
+        }
+
+        WinformsUtilities.OpenExplorer(path);
+    }
+
 
     private void TreeViewSettings_BeforeSelect(object sender, TreeViewCancelEventArgs e)
     {
