@@ -35,9 +35,7 @@ public partial class VariablesForm : Form
             var item = listViewVariables.Items.Find(kv.Key, false).FirstOrDefault();
             if (item == null)
             {
-                item = new ListViewItem(kv.Key);
-                item.Tag = kv.Value;
-                item.Name = kv.Key;
+                item = new ListViewItem(kv.Key) { Tag = kv.Value, Name = kv.Key };
                 listViewVariables.Items.Add(item);
                 item.SubItems.Add(kv.Value.Value);
             }
@@ -59,10 +57,7 @@ public partial class VariablesForm : Form
 
     private void ButtonAdd_Click(object sender, EventArgs e)
     {
-        var dlg = new VariableForm
-        {
-            Text = Res.AddVariableTitle
-        };
+        var dlg = new VariableForm { Text = Res.AddVariableTitle };
         if (dlg.ShowDialog(this) != DialogResult.OK)
             return;
 
@@ -78,11 +73,7 @@ public partial class VariablesForm : Form
         if (variable == null)
             return;
 
-        var dlg = new VariableForm()
-        {
-            Text = Res.ModifyVariableTitle
-        };
-
+        var dlg = new VariableForm() { Text = Res.ModifyVariableTitle };
         dlg.textBoxName.Enabled = false;
         dlg.textBoxName.Text = variable.Name;
         dlg.textBoxValue.Text = variable.Value;

@@ -25,6 +25,7 @@ public sealed partial class DiffForm : Form
         optWordWrap.Text = Res.DiffWordWrap;
         optShowWhitespace.Text = Res.DiffShowWhitespace;
         refreshButton.Text = Res.DiffRefresh;
+        swapButton.Text = Res.DiffSwap;
 
         optSideBySide.Checked = Settings.Current.DiffRenderSideBySide;
         optIgnoreWhitespace.Checked = Settings.Current.DiffIgnoreTrimWhitespace;
@@ -38,6 +39,15 @@ public sealed partial class DiffForm : Form
     private void OnLeftClick(object? sender, EventArgs e) => PickSide(true);
     private void OnRightClick(object? sender, EventArgs e) => PickSide(false);
     private void OnRefreshClick(object? sender, EventArgs e) => Render();
+
+    private void OnSwapClick(object? sender, EventArgs e)
+    {
+        (_left, _right) = (_right, _left);
+        UpdateSideButtons();
+        UpdateTitle();
+        UpdateWatchers();
+        Render();
+    }
 
     protected override void OnHandleCreated(EventArgs e)
     {
@@ -229,6 +239,10 @@ public sealed partial class DiffForm : Form
         leftButton.ToolTipText = _left?.FilePath ?? Res.DiffChooseLeft;
         rightButton.Text = _right != null ? Path.GetFileName(_right.FilePath) : Res.DiffChooseNode;
         rightButton.ToolTipText = _right?.FilePath ?? Res.DiffChooseRight;
+
+        var both = _left != null && _right != null;
+        swapButton.Enabled = both;
+        refreshButton.Enabled = both;
     }
 
     private void UpdateTitle()

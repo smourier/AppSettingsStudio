@@ -171,10 +171,16 @@
             }
 
             editor.setValue(full);
-
+            editor.layout();
             if (state) {
-                editor.layout();
-                editor.restoreViewState(state);
+                if (state.sel) {
+                    editor.setSelection(state.sel);
+                }
+                editor.setScrollPosition({ scrollTop: state.scrollTop || 0, scrollLeft: state.scrollLeft || 0 }, 1);
+            }
+            else {
+                editor.setSelection({ startLineNumber: 1, startColumn: 1, endLineNumber: 1, endColumn: 1 });
+                editor.setScrollPosition({ scrollTop: 0, scrollLeft: 0 }, 1);
             }
         }
 
@@ -182,8 +188,12 @@
             if (!editor)
                 return null;
 
-            var vs = editor.saveViewState();
-            return vs ? JSON.stringify(vs) : null;
+            var sel = editor.getSelection();
+            return JSON.stringify({
+                sel: sel ? { startLineNumber: sel.startLineNumber, startColumn: sel.startColumn, endLineNumber: sel.endLineNumber, endColumn: sel.endColumn } : null,
+                scrollTop: editor.getScrollTop(),
+                scrollLeft: editor.getScrollLeft()
+            });
         }
 
     </script>

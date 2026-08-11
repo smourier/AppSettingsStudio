@@ -157,6 +157,9 @@
   <data name="DiffRefresh" xml:space="preserve">
     <value>Refresh</value>
   </data>
+  <data name="DiffSwap" xml:space="preserve">
+    <value>Swap sides</value>
+  </data>
   <data name="DiffChooseNode" xml:space="preserve">
     <value>(choose a node...)</value>
   </data>
@@ -189,6 +192,9 @@
   </data>
   <data name="CompareTo" xml:space="preserve">
     <value>&amp;Compare to...</value>
+  </data>
+  <data name="CompareToName" xml:space="preserve">
+    <value>&amp;Compare to '{0}'</value>
   </data>
   <data name="ConfirmDiscardChanges" xml:space="preserve">
     <value>The current json file '{0}' has changed, do you want to discard the changes?</value>
@@ -279,5 +285,35 @@
   </data>
   <data name="RootPathNotFound" xml:space="preserve">
     <value>Root path doesn't exist yet.</value>
+  </data>
+  <data name="Files" xml:space="preserve">
+    <value>Files</value>
+  </data>
+  <data name="AddFolder" xml:space="preserve">
+    <value>Add &amp;Folder</value>
+  </data>
+  <data name="AddFile" xml:space="preserve">
+    <value>Add Existing &amp;File...</value>
+  </data>
+  <data name="RemoveFileNode" xml:space="preserve">
+    <value>&amp;Remove</value>
+  </data>
+  <data name="AddFileTitle" xml:space="preserve">
+    <value>Add existing file</value>
+  </data>
+  <data name="JsonFileFilter" xml:space="preserve">
+    <value>JSON Files (*.json)|*.json|All Files (*.*)|*.*</value>
+  </data>
+  <data name="DuplicateFolderName" xml:space="preserve">
+    <value>There is already a folder with this name.</value>
+  </data>
+  <data name="ConfirmRemoveFolder" xml:space="preserve">
+    <value>Are you sure you want to remove the '{0}' folder and all its content? The files are not deleted from disk.</value>
+  </data>
+  <data name="Ok" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
   </data>
 </root>

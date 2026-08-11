@@ -23,6 +23,7 @@ partial class DiffForm
         leftButton = new ToolStripButton();
         rightLabel = new ToolStripLabel();
         rightButton = new ToolStripButton();
+        swapButton = new ToolStripButton();
         toolStripSeparator1 = new ToolStripSeparator();
         optSideBySide = new ToolStripButton();
         optIgnoreWhitespace = new ToolStripButton();
@@ -41,7 +42,7 @@ partial class DiffForm
         // toolStrip
         // 
         toolStrip.GripStyle = ToolStripGripStyle.Hidden;
-        toolStrip.Items.AddRange(new ToolStripItem[] { leftLabel, leftButton, rightLabel, rightButton, toolStripSeparator1, optSideBySide, optIgnoreWhitespace, optWordWrap, optShowWhitespace, toolStripSeparator2, refreshButton });
+        toolStrip.Items.AddRange(new ToolStripItem[] { leftLabel, leftButton, rightLabel, rightButton, swapButton, toolStripSeparator1, optSideBySide, optIgnoreWhitespace, optWordWrap, optShowWhitespace, toolStripSeparator2, refreshButton });
         resources.ApplyResources(toolStrip, "toolStrip");
         toolStrip.Name = "toolStrip";
         // 
@@ -66,9 +67,15 @@ partial class DiffForm
         rightButton.Name = "rightButton";
         resources.ApplyResources(rightButton, "rightButton");
         rightButton.Click += OnRightClick;
-        // 
+        //
+        // swapButton
+        //
+        swapButton.Name = "swapButton";
+        resources.ApplyResources(swapButton, "swapButton");
+        swapButton.Click += OnSwapClick;
+        //
         // toolStripSeparator1
-        // 
+        //
         toolStripSeparator1.Name = "toolStripSeparator1";
         resources.ApplyResources(toolStripSeparator1, "toolStripSeparator1");
         // 
@@ -157,6 +164,7 @@ partial class DiffForm
     private ToolStripButton leftButton;
     private ToolStripLabel rightLabel;
     private ToolStripButton rightButton;
+    private ToolStripButton swapButton;
     private ToolStripSeparator toolStripSeparator1;
     private ToolStripButton optSideBySide;
     private ToolStripButton optIgnoreWhitespace;

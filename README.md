@@ -208,14 +208,14 @@ Note: creating links between Windows and WSL is not supported.
 ## Comparing settings
 You can compare the JSON content of any two settings files side by side. This is handy to see what differs between a Debug and a Release virtual settings, between a virtual settings and the original gathered `appsettings.json`, or between your settings and a colleague's imported ones.
 
-There are two ways to open a comparison:
+There are two ways to open a comparison. Both reuse the last two comparable nodes you selected, so the two sides are usually already filled in for you:
 
-* the "View", "Compare..." menu, which opens with the currently selected node already set as the left side.
-* right click any node that has a JSON editor and select "Compare to...".
+* the "View", "Compare..." menu opens with the last two selected nodes as the left and right sides.
+* right click a node that has a JSON editor. When another comparable node was selected just before, the menu reads "Compare to '<name>'" and compares the two directly, otherwise it reads "Compare to..." and lets you pick the other side.
 
 <img width="1286" height="787" alt="Comparing settings" src="https://github.com/user-attachments/assets/e12564ff-e0e6-4649-be19-27002532e740" />
 
-Either side can be chosen, or changed later, through the same tree browser used elsewhere in the app, so you are not limited to the two nodes you started from. The toolbar offers a few options, all remembered between sessions:
+Either side can be chosen, or changed later, through the same tree browser used elsewhere in the app, so you are not limited to the two nodes you started from, and the "Swap sides" button flips the two. The toolbar offers a few options, all remembered between sessions:
 
 * side by side or inline rendering.
 * ignore trailing whitespace.
@@ -225,6 +225,17 @@ Either side can be chosen, or changed later, through the same tree browser used 
 The comparison window is modeless, so you can keep editing and saving your settings while it stays open. Click "Refresh" to re-read both files from disk. You can also turn on "Automatically Refresh On File Change" in the "File", "Preferences" menu, so the comparison updates on its own as soon as either file changes on disk. For example, edit a virtual settings in the editor, press CTRL+S, and the open comparison reflects the change right away.
 
 The comparison uses the [Monaco](https://microsoft.github.io/monaco-editor/) diff editor, so differences are highlighted just like in Visual Studio Code.
+
+## Files
+Beside the applications, AppSettings Studio can keep a personal list of arbitrary files under a "Files" root node. This is handy to keep a few JSON files you often open or compare close at hand, without them being tied to any application.
+
+Right click the "Files" node, or any folder under it, to organize your files:
+
+* "Add Folder" creates a sub folder. Folders are just names to group files, they do not exist on disk, and you can nest them as deep as you want.
+* "Add existing File..." adds one or more files. The picker is filtered to `*.json` by default, but you can pick any file.
+* "Remove" (or the Delete key) takes a file or folder out of the tree. The file on disk is never touched.
+
+Each file appears under its name on disk and opens in the same JSON editor as the rest, read only when the file itself is read only on disk. These files can also be chosen as either side of a comparison (see the previous chapter). The whole "Files" tree, with its folders and files, is saved with your settings and restored the next time you open the app, including which folders were expanded.
 
 ## Variables
 AppSettings Studio supports two types of variables that you can use in virtual settings JSON properties values (not keys):

@@ -47,6 +47,9 @@ public class Settings : Serializable<Settings>
     public virtual IDictionary<string, IList<string>> Trees { get; set; } = new Dictionary<string, IList<string>>(StringComparer.OrdinalIgnoreCase);
 
     [Browsable(false)]
+    public virtual FilesFolder FilesRoot { get; set; } = new();
+
+    [Browsable(false)]
     public virtual float MainSpliterDistance { get => GetPropertyValue<float>(1.0f); set => SetPropertyValue(value); }
 
     [LocalizedCategory("Ui")]

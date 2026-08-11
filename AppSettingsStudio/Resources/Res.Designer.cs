@@ -61,6 +61,33 @@ namespace AppSettingsStudio.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add Existing &amp;File....
+        /// </summary>
+        internal static string AddFile {
+            get {
+                return ResourceManager.GetString("AddFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add existing file.
+        /// </summary>
+        internal static string AddFileTitle {
+            get {
+                return ResourceManager.GetString("AddFileTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add &amp;Folder.
+        /// </summary>
+        internal static string AddFolder {
+            get {
+                return ResourceManager.GetString("AddFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add new global variable.
         /// </summary>
         internal static string AddVariableTitle {
@@ -88,6 +115,15 @@ namespace AppSettingsStudio.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        internal static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Links cannot be established between Unix paths with Windows paths..
         /// </summary>
         internal static string CannotLink {
@@ -111,6 +147,15 @@ namespace AppSettingsStudio.Resources {
         internal static string CompareTo {
             get {
                 return ResourceManager.GetString("CompareTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &amp;Compare to &apos;{0}&apos;.
+        /// </summary>
+        internal static string CompareToName {
+            get {
+                return ResourceManager.GetString("CompareToName", resourceCulture);
             }
         }
         
@@ -183,6 +228,15 @@ namespace AppSettingsStudio.Resources {
         internal static string ConfirmOverwriteFile {
             get {
                 return ResourceManager.GetString("ConfirmOverwriteFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to remove the &apos;{0}&apos; folder and all its content? The files are not deleted from disk..
+        /// </summary>
+        internal static string ConfirmRemoveFolder {
+            get {
+                return ResourceManager.GetString("ConfirmRemoveFolder", resourceCulture);
             }
         }
         
@@ -331,6 +385,15 @@ namespace AppSettingsStudio.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Swap sides.
+        /// </summary>
+        internal static string DiffSwap {
+            get {
+                return ResourceManager.GetString("DiffSwap", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Compare.
         /// </summary>
         internal static string DiffTitle {
@@ -354,6 +417,15 @@ namespace AppSettingsStudio.Resources {
         internal static string DiffWordWrap {
             get {
                 return ResourceManager.GetString("DiffWordWrap", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There is already a folder with this name..
+        /// </summary>
+        internal static string DuplicateFolderName {
+            get {
+                return ResourceManager.GetString("DuplicateFolderName", resourceCulture);
             }
         }
         
@@ -385,6 +457,15 @@ namespace AppSettingsStudio.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Files.
+        /// </summary>
+        internal static string Files {
+            get {
+                return ResourceManager.GetString("Files", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hierarchical View Levels.
         /// </summary>
         internal static string HierarchicalViewLevelsDisplayName {
@@ -408,6 +489,15 @@ namespace AppSettingsStudio.Resources {
         internal static string JsonEditorCategory {
             get {
                 return ResourceManager.GetString("JsonEditorCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to JSON Files (*.json)|*.json|All Files (*.*)|*.*.
+        /// </summary>
+        internal static string JsonFileFilter {
+            get {
+                return ResourceManager.GetString("JsonFileFilter", resourceCulture);
             }
         }
         
@@ -467,11 +557,29 @@ namespace AppSettingsStudio.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OK.
+        /// </summary>
+        internal static string Ok {
+            get {
+                return ResourceManager.GetString("Ok", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pick an existing appsettings*.json file.
         /// </summary>
         internal static string PickAppSettingsTitle {
             get {
                 return ResourceManager.GetString("PickAppSettingsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &amp;Remove.
+        /// </summary>
+        internal static string RemoveFileNode {
+            get {
+                return ResourceManager.GetString("RemoveFileNode", resourceCulture);
             }
         }
         

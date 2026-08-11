@@ -26,6 +26,9 @@
 		<EmbeddedResource Include="Resources\index.html" />
 		<EmbeddedResource Include="Resources\Diff.html" />
 		<EmbeddedResource Include="Resources\vs.0.55.1.zip" />
+		<Compile Update="NameInputForm.cs">
+		  <SubType>Form</SubType>
+		</Compile>
 		<Compile Update="Resources\Res.Designer.cs">
 			<DesignTime>True</DesignTime>
 			<AutoGen>True</AutoGen>

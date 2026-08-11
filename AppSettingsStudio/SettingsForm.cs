@@ -11,10 +11,7 @@ public partial class SettingsForm : Form
             throw new ArgumentException(null, nameof(settings));
 
         Settings = cloneable.Clone();
-        changed.PropertyChanged += (s, e) =>
-        {
-            propertyGridSettings.Refresh();
-        };
+        changed.PropertyChanged += (s, e) => propertyGridSettings.Refresh();
 
         InitializeComponent();
 

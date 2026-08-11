@@ -2,7 +2,8 @@ namespace AppSettingsStudio;
 
 public partial class Main : Form
 {
-    private readonly TreeNode _rootNode;
+    private readonly TreeNode _applicationsNode;
+    private readonly TreeNode _filesNode;
     private MonacoEditorControl? _editorControl;
     private string? _currentJsonFilePath;
     private string? _currentViewStateKey;
@@ -11,6 +12,14 @@ public partial class Main : Form
     private readonly ConcurrentDictionary<string, Manager> _managers = new(StringComparer.OrdinalIgnoreCase);
     private ToolStripMenuItem? _compareToAppSettingsMenuItem;
     private ToolStripMenuItem? _compareToInstanceMenuItem;
+    private CompareRef? _lastCompare;
+    private CompareRef? _previousCompare;
+    private ContextMenuStrip? _filesFolderMenu;
+    private ContextMenuStrip? _filesFileMenu;
+    private ToolStripMenuItem? _removeFolderMenuItem;
+    private ToolStripMenuItem? _compareToFileMenuItem;
+
+    private sealed record CompareRef(CompareSide Side, string Name);
 
     internal static Main? _current;
     internal readonly Font _boldFont;
@@ -40,12 +49,19 @@ public partial class Main : Form
 
         ResetRootPaths();
 
-        _rootNode = treeViewSettings.Nodes.Add(Res.Applications);
-        _rootNode.SetImageIndex(ImageLibraryIndex.Resource);
+        _applicationsNode = treeViewSettings.Nodes.Add(Res.Applications);
+        _applicationsNode.SetImageIndex(ImageLibraryIndex.Resource);
+
+        _filesNode = treeViewSettings.Nodes.Add(Res.Files);
+        _filesNode.SetImageIndex(ImageLibraryIndex.Folder);
 
         SetupCompareMenus();
+        SetupFilesMenus();
         LoadMonacoEditor();
     }
+
+    public string DefaultRootPath { get; }
+    public ILogger<Main>? Logger { get; }
 
     private void SetupCompareMenus()
     {
@@ -68,24 +84,180 @@ public partial class Main : Form
 
     private void OpenCompare()
     {
-        var left = CompareSide.FromTag(treeViewSettings.SelectedNode?.Tag);
-        var dlg = new DiffForm(_managers.Values, left, null);
+        var dlg = new DiffForm(_managers.Values, _previousCompare?.Side, _lastCompare?.Side);
         dlg.Show(this);
     }
 
-    private void ContextMenuStripInstance_Opening(object? sender, CancelEventArgs e)
+    private void UpdateCompareToItem(ToolStripMenuItem? item)
     {
-        _compareToInstanceMenuItem?.Enabled = CompareSide.FromTag(treeViewSettings.SelectedNode?.Tag) != null;
+        if (item == null)
+            return;
+
+        item.Enabled = CompareSide.FromTag(treeViewSettings.SelectedNode?.Tag) != null;
+        item.Text = _previousCompare != null ? string.Format(Res.CompareToName, _previousCompare.Name.Replace("&", "&&")) : Res.CompareTo;
     }
 
-    public string DefaultRootPath { get; }
-    public ILogger<Main>? Logger { get; }
+    private void ContextMenuStripInstance_Opening(object? sender, CancelEventArgs e) => UpdateCompareToItem(_compareToInstanceMenuItem);
+
+    private void SetupFilesMenus()
+    {
+        _filesFolderMenu = new ContextMenuStrip(components);
+        var addFolder = new ToolStripMenuItem(Res.AddFolder);
+        addFolder.Click += (s, e) => AddFolder();
+
+        var addFile = new ToolStripMenuItem(Res.AddFile);
+        addFile.Click += (s, e) => AddExistingFile();
+
+        _removeFolderMenuItem = new ToolStripMenuItem(Res.RemoveFileNode);
+        _removeFolderMenuItem.Click += (s, e) => RemoveFilesNode(treeViewSettings.SelectedNode);
+        _filesFolderMenu.Items.AddRange([addFolder, addFile, new ToolStripSeparator(), _removeFolderMenuItem]);
+        _filesFolderMenu.Opening += (s, e) =>
+        {
+            // the root "Files" node cannot be removed, only sub folders can.
+            _removeFolderMenuItem?.Enabled = treeViewSettings.SelectedNode?.Parent != null;
+        };
+
+        _filesFileMenu = new ContextMenuStrip(components);
+        _compareToFileMenuItem = new ToolStripMenuItem(Res.CompareTo);
+        _compareToFileMenuItem.Click += (s, e) => OpenCompare();
+
+        var removeFile = new ToolStripMenuItem(Res.RemoveFileNode);
+        removeFile.Click += (s, e) => RemoveFilesNode(treeViewSettings.SelectedNode);
+        _filesFileMenu.Items.AddRange([_compareToFileMenuItem, new ToolStripSeparator(), removeFile]);
+        _filesFileMenu.Opening += (s, e) => UpdateCompareToItem(_compareToFileMenuItem);
+    }
+
+    internal static void BuildFilesTree(TreeNode filesNode)
+    {
+        filesNode.Nodes.Clear();
+        filesNode.Tag = Settings.Current.FilesRoot;
+        BuildFilesFolder(filesNode, Settings.Current.FilesRoot);
+    }
+
+    private static void BuildFilesFolder(TreeNode parentNode, FilesFolder folder)
+    {
+        foreach (var sub in folder.Folders.OrderBy(f => f.Name, StringComparer.OrdinalIgnoreCase))
+        {
+            var node = new TreeNode(sub.Name) { Name = sub.Name, Tag = sub };
+            node.SetImageIndex(ImageLibraryIndex.Folder);
+            parentNode.Nodes.Add(node);
+            BuildFilesFolder(node, sub);
+        }
+
+        foreach (var path in folder.Files.OrderBy(f => Path.GetFileName(f), StringComparer.OrdinalIgnoreCase))
+        {
+            var item = new FileItem(path);
+            var node = new TreeNode(item.Name) { Name = item.Name, Tag = item };
+            node.SetImageIndex(File.Exists(path) ? ImageLibraryIndex.Json : ImageLibraryIndex.MissingFile);
+            parentNode.Nodes.Add(node);
+        }
+    }
+
+    private void UpdateFilesTree() => BuildFilesTree(_filesNode);
+    private void RefreshFilesTree()
+    {
+        Settings.Current.SaveTree(treeViewSettings);
+        Settings.Current.SerializeToConfiguration();
+        UpdateFilesTree();
+        Settings.Current.RestoreTree(treeViewSettings);
+    }
+
+    private void AddFolder()
+    {
+        if (treeViewSettings.SelectedNode?.Tag is not FilesFolder folder)
+            return;
+
+        using var dlg = new NameInputForm(folder);
+        if (dlg.ShowDialog(this) != DialogResult.OK || string.IsNullOrWhiteSpace(dlg.FolderName))
+            return;
+
+        if (folder.Folders.Any(f => f.Name.EqualsIgnoreCase(dlg.FolderName)))
+        {
+            this.ShowWarning(Res.DuplicateFolderName);
+            return;
+        }
+
+        var parentPath = treeViewSettings.SelectedNode?.FullPath;
+        folder.Folders.Add(new FilesFolder { Name = dlg.FolderName });
+        RefreshFilesTree();
+        ExpandFilesNode(parentPath);
+    }
+
+    private void ExpandFilesNode(string? fullPath)
+    {
+        if (fullPath == null)
+            return;
+
+        treeViewSettings.FindByFullPath(fullPath)?.Expand();
+    }
+
+    private void AddExistingFile()
+    {
+        if (treeViewSettings.SelectedNode?.Tag is not FilesFolder folder)
+            return;
+
+        using var dlg = new System.Windows.Forms.OpenFileDialog
+        {
+            Title = Res.AddFileTitle,
+            Filter = Res.JsonFileFilter,
+            Multiselect = true,
+            CheckFileExists = true,
+        };
+        if (dlg.ShowDialog(this) != DialogResult.OK)
+            return;
+
+        var added = false;
+        foreach (var path in dlg.FileNames)
+        {
+            if (folder.Files.Any(f => f.EqualsIgnoreCase(path)))
+                continue;
+
+            folder.Files.Add(path);
+            added = true;
+        }
+
+        if (added)
+        {
+            var parentPath = treeViewSettings.SelectedNode?.FullPath;
+            RefreshFilesTree();
+            ExpandFilesNode(parentPath);
+        }
+    }
+
+    private void RemoveFilesNode(TreeNode? node)
+    {
+        if (node?.Parent?.Tag is not FilesFolder parent)
+            return;
+
+        if (node.Tag is FilesFolder folder)
+        {
+            if (this.ShowConfirm(string.Format(Res.ConfirmRemoveFolder, folder.Name)) != DialogResult.Yes)
+                return;
+
+            parent.Folders.Remove(folder);
+        }
+        else if (node.Tag is FileItem file)
+        {
+            var stored = parent.Files.FirstOrDefault(f => f.EqualsIgnoreCase(file.FilePath));
+            if (stored == null)
+                return;
+
+            parent.Files.Remove(stored);
+        }
+        else
+        {
+            return;
+        }
+
+        RefreshFilesTree();
+    }
 
     protected override void OnHandleCreated(EventArgs e)
     {
         base.OnHandleCreated(e);
         UpdateTree();
-        _rootNode.Expand();
+        _applicationsNode.Expand();
+        _filesNode.Expand();
         Settings.Current.RestoreTree(treeViewSettings);
     }
 
@@ -160,7 +332,8 @@ public partial class Main : Form
             kv.Value.Clear();
             kv.Value.Load(kv.Key);
         }
-        UpdateTree(_rootNode, _boldFont, _managers.Values, false);
+        UpdateTree(_applicationsNode, _boldFont, _managers.Values, false);
+        UpdateFilesTree();
     }
 
     private void ResetRootPaths()
@@ -289,7 +462,7 @@ public partial class Main : Form
         }
     }
 
-    private TreeNode? GetAppNode(App app) => _rootNode.Nodes.Find(app.Name, false).FirstOrDefault();
+    private TreeNode? GetAppNode(App app) => _applicationsNode.Nodes.Find(app.Name, false).FirstOrDefault();
     private TreeNode? GetInstanceNode(Instance instance)
     {
         var appNode = GetAppNode(instance.App);
@@ -318,7 +491,7 @@ public partial class Main : Form
         {
             BeginInvoke(() =>
             {
-                var node = _rootNode.FindByFullPath(last);
+                var node = _applicationsNode.FindByFullPath(last);
                 if (node != null)
                 {
                     node.EnsureVisible();
@@ -364,6 +537,12 @@ public partial class Main : Form
 
     private void DeleteTreeItem()
     {
+        if (treeViewSettings.SelectedNode?.Tag is FileItem or FilesFolder)
+        {
+            RemoveFilesNode(treeViewSettings.SelectedNode);
+            return;
+        }
+
         if (treeViewSettings.SelectedNode?.Tag is Instance instance)
         {
             if (this.ShowConfirm(string.Format(Res.ConfirmDeleteInstance, instance.DisplayName)) != DialogResult.Yes)
@@ -466,7 +645,7 @@ public partial class Main : Form
     {
         Settings.Current.LastFullPath = treeViewSettings.SelectedNode?.FullPath;
         Settings.Current.SaveTree(treeViewSettings);
-        _rootNode.Nodes.Clear();
+        _applicationsNode.Nodes.Clear();
         UpdateTree();
         Settings.Current.RestoreTree(treeViewSettings);
         return SelectLastPath();
@@ -491,6 +670,13 @@ public partial class Main : Form
         var tt = treeViewSettings.SelectedNode?.ToolTipText.Nullify() ?? string.Empty;
         toolStripStatusLabelLeft.Text = tt;
         propertyGridMain.SelectedObject = treeViewSettings.SelectedNode?.Tag ?? new { Namespace = treeViewSettings.SelectedNode?.FullPath?.Replace('\\', '.') };
+
+        var compareSide = CompareSide.FromTag(treeViewSettings.SelectedNode?.Tag);
+        if (compareSide != null)
+        {
+            _previousCompare = _lastCompare;
+            _lastCompare = new CompareRef(compareSide, treeViewSettings.SelectedNode!.Text);
+        }
 
         if (treeViewSettings.SelectedNode?.Tag is IWithFilePath jsonFilePath && jsonFilePath.FilePath != null && IOUtilities.PathIsFile(jsonFilePath.FilePath))
         {
@@ -624,6 +810,14 @@ public partial class Main : Form
         {
             node.ContextMenuStrip = contextMenuStripAppSettings;
         }
+        else if (node?.Tag is FilesFolder)
+        {
+            node.ContextMenuStrip = _filesFolderMenu;
+        }
+        else if (node?.Tag is FileItem)
+        {
+            node.ContextMenuStrip = _filesFileMenu;
+        }
         else
         {
             node?.ContextMenuStrip = null;
@@ -699,11 +893,8 @@ public partial class Main : Form
             return;
 
         var target = Path.Combine(instance.DirectoryPath, Path.GetFileName(ofd.FileName));
-        if (IOUtilities.PathIsFile(target))
-        {
-            if (this.ShowConfirm(string.Format(Res.ConfirmOverwriteFile, Path.GetFileName(target))) != DialogResult.Yes)
-                return;
-        }
+        if (IOUtilities.PathIsFile(target) && this.ShowConfirm(string.Format(Res.ConfirmOverwriteFile, Path.GetFileName(target))) != DialogResult.Yes)
+            return;
 
         IOUtilities.FileOverwrite(ofd.FileName, target, true);
         UpdateTree();
@@ -752,7 +943,7 @@ public partial class Main : Form
     private void ContextMenuStripAppSettings_Opening(object sender, CancelEventArgs e)
     {
         makeActiveToolStripMenuItem.Enabled = treeViewSettings.SelectedNode?.Tag is AppSettings appSetting && !appSetting.IsActive;
-        _compareToAppSettingsMenuItem?.Enabled = CompareSide.FromTag(treeViewSettings.SelectedNode?.Tag) != null;
+        UpdateCompareToItem(_compareToAppSettingsMenuItem);
     }
 
     private void TreeViewSettings_AfterLabelEdit(object sender, NodeLabelEditEventArgs e)
@@ -892,7 +1083,7 @@ public partial class Main : Form
         }
 
         Settings.Current.SerializeToConfiguration();
-        _rootNode.Nodes.Clear();
+        _applicationsNode.Nodes.Clear();
         UpdateTree();
     }
 

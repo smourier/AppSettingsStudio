@@ -34,6 +34,15 @@ public partial class BrowserForm : Form
         base.OnHandleCreated(e);
         Main.UpdateTree(_rootNode, Main._current?._boldFont, _managers, _linkMode);
         _rootNode.Expand();
+
+        if (!_linkMode)
+        {
+            var filesNode = treeViewSettings.Nodes.Add(Res.Files);
+            filesNode.SetImageIndex(ImageLibraryIndex.Folder);
+            Main.BuildFilesTree(filesNode);
+            filesNode.Expand();
+        }
+
         Settings.Current.RestoreTree(treeViewSettings);
         SelectByFilePath(_selectedFilePath);
         UpdateControls();
