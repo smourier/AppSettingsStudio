@@ -1,5 +1,7 @@
 # AppSettings Studio
-A graphical interface centralized management of .NET `appsettings.json` files. It offers a unified view to edit, validate, and apply configuration changes across multiple projects or executables—including WSL on Windows—with support for live updates.
+A graphical interface for centralized management of .NET `appsettings.json` files. It offers a unified view to edit, validate, and apply configuration changes across multiple projects or executables—including WSL on Windows—with support for live updates.
+
+The point is not to *share* settings between developers, source control already does that. It is the opposite: each developer centralizes and manages their own personal settings and secrets for every app they work on, independently from everyone else, and without touching the official `appsettings.json` files kept in source control.
 
 
 <img width="1080" height="518" alt="AppSettings Studio" src="https://github.com/user-attachments/assets/65e7db1c-77b6-4fd3-abb6-0b34dd6e2ea6" />
@@ -202,6 +204,27 @@ Now, each time you change a source setting using the JSON editor, it will be ref
 <img width="1080" height="518" alt="Link" src="https://github.com/user-attachments/assets/c40e1bc8-8f4d-49d9-89e2-56c8d463157e" />
 
 Note: creating links between Windows and WSL is not supported.
+
+## Comparing settings
+You can compare the JSON content of any two settings files side by side. This is handy to see what differs between a Debug and a Release virtual settings, between a virtual settings and the original gathered `appsettings.json`, or between your settings and a colleague's imported ones.
+
+There are two ways to open a comparison:
+
+* the "View", "Compare..." menu, which opens with the currently selected node already set as the left side.
+* right click any node that has a JSON editor and select "Compare to...".
+
+<!-- add a screenshot of the compare window here -->
+
+Either side can be chosen, or changed later, through the same tree browser used elsewhere in the app, so you are not limited to the two nodes you started from. The toolbar offers a few options, all remembered between sessions:
+
+* side by side or inline rendering.
+* ignore trailing whitespace.
+* word wrap.
+* show whitespace.
+
+The comparison window is modeless, so you can keep editing and saving your settings while it stays open. Click "Refresh" to re-read both files from disk. You can also turn on "Automatically Refresh On File Change" in the "File", "Preferences" menu, so the comparison updates on its own as soon as either file changes on disk. For example, edit a virtual settings in the editor, press CTRL+S, and the open comparison reflects the change right away.
+
+The comparison uses the [Monaco](https://microsoft.github.io/monaco-editor/) diff editor, so differences are highlighted just like in Visual Studio Code.
 
 ## Variables
 AppSettings Studio supports two types of variables that you can use in virtual settings JSON properties values (not keys):
