@@ -316,4 +316,7 @@
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
+  <data name="DisplayFilesFullPathDisplayName" xml:space="preserve">
+    <value>Display Files Full Path</value>
+  </data>
 </root>

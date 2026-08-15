@@ -147,7 +147,7 @@ public partial class Main : Form
         foreach (var path in folder.Files.OrderBy(f => Path.GetFileName(f), StringComparer.OrdinalIgnoreCase))
         {
             var item = new FileItem(path);
-            var node = new TreeNode(item.Name) { Name = item.Name, Tag = item };
+            var node = new TreeNode(Settings.Current.DisplayFilesFullPath ? item.FilePath : item.Name) { Name = item.Name, Tag = item };
             node.SetImageIndex(File.Exists(path) ? ImageLibraryIndex.Json : ImageLibraryIndex.MissingFile);
             parentNode.Nodes.Add(node);
         }
@@ -372,10 +372,17 @@ public partial class Main : Form
 
                 appNode.Name = kv.Key;
                 appNode.Tag = kv.Value;
-                if (Settings.Current.RootNodesBold)
+                // assign both ways so toggling the option off also un-bolds live, not just on restart.
+                var nodeFont = Settings.Current.RootNodesBold ? rootFont : null;
+                if (appNode.NodeFont != nodeFont)
                 {
-                    appNode.NodeFont = rootFont;
+                    appNode.NodeFont = nodeFont;
+
+                    // reassigning the text forces the native TreeView to re-measure the label with the new font.
+                    // it caches the width from the previous font, so switching to the wider bold font clips the text until a restart rebuilds the node.
+                    appNode.Text = appNode.Text;
                 }
+
                 appNode.ToolTipText = kv.Key;
 
                 var existingInstancesKeys = appNode.Nodes.Cast<TreeNode>().Select(n => n.Name).ToHashSet();

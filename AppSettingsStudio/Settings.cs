@@ -58,6 +58,11 @@ public class Settings : Serializable<Settings>
     public virtual bool RootNodesBold { get => GetPropertyValue(false); set => SetPropertyValue(value); }
 
     [LocalizedCategory("Ui")]
+    [LocalizedDisplayName("DisplayFilesFullPath")]
+    [DefaultValue(true)]
+    public virtual bool DisplayFilesFullPath { get => GetPropertyValue(true); set => SetPropertyValue(value); }
+
+    [LocalizedCategory("Ui")]
     [LocalizedDisplayName("ViewType")]
     [DefaultValue(ViewType.Flat)]
     public virtual ViewType ViewType { get => GetPropertyValue(ViewType.Flat); set => SetPropertyValue(value); }

@@ -421,6 +421,15 @@ namespace AppSettingsStudio.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Display Files Full Path.
+        /// </summary>
+        internal static string DisplayFilesFullPathDisplayName {
+            get {
+                return ResourceManager.GetString("DisplayFilesFullPathDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There is already a folder with this name..
         /// </summary>
         internal static string DuplicateFolderName {
